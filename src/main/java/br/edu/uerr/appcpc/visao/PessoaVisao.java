@@ -33,11 +33,8 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
 
     private Pessoa pessoa;
 
-    private EnderecoPessoa enderecoPessoa;
 
     private List<Pessoa> listPessoa = new ArrayList<>();
-
-    private List<EnderecoPessoa> listEnderecoPessoa = new ArrayList<>();
 
     private String confirmaSenha;
 
@@ -48,12 +45,12 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public String abrirCadastro() {
         try {
             pessoa = new Pessoa();
+            
             //Random random = new Random();
             //int x = random.nextInt(100000);
             pessoa = pessoaControle.pegaPessoaId(94774);
             //listPessoa = new ArrayList<>();
-            enderecoPessoa = new EnderecoPessoa();
-            enderecoPessoa = enderecoPessoaControle.pegaEnderecoPessoaPeloId(pessoa.getId());
+
             System.out.println(pessoa.getNome());
             //listEnderecoPessoa = new ArrayList<>();            
 
@@ -131,21 +128,8 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
         this.listPessoa = listPessoa;
     }
 
-    public EnderecoPessoa getEnderecoPessoa() {
-        return enderecoPessoa;
-    }
 
-    public void setEnderecoPessoa(EnderecoPessoa enderecoPessoa) {
-        this.enderecoPessoa = enderecoPessoa;
-    }
 
-    public List<EnderecoPessoa> getListEnderecoPessoa() {
-        return listEnderecoPessoa;
-    }
-
-    public void setListEnderecoPessoa(List<EnderecoPessoa> listEnderecoPessoa) {
-        this.listEnderecoPessoa = listEnderecoPessoa;
-    }
 
     public String getConfirmaSenha() {
         return confirmaSenha;

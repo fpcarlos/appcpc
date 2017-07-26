@@ -15,7 +15,7 @@
                         // Limpa valores do formulário de cep.
                         $("#logradouro").val("");
                         $("#bairro").val("");
-                        $("#localidade").val("");
+                        $("#cidade").val("");
                         $("#uf").val("");
                         //$("#ibge").val("");
                     }
@@ -38,7 +38,7 @@
                                 //Preenche os campos com "..." enquanto consulta webservice.
                                 $("#logradoro").val("...");
                                 $("#bairro").val("...");
-                                $("#localidade").val("...");
+                                $("#cidade").val("...");
                                 $("#uf").val("...");
                                 //$("#ibge").val("...");
 
@@ -49,7 +49,7 @@
                                         //Atualiza os campos com os valores da consulta.
                                         $("#logradoro").val(dados.logradouro);
                                         $("#bairro").val(dados.bairro);
-                                        $("#localidade").val(dados.localidade);
+                                        $("#cidade").val(dados.cidade);
                                         $("#uf").val(dados.uf);
                                         // $("#ibge").val(dados.ibge);
                                     } //end if.
@@ -76,21 +76,24 @@
             </script>
         </h:head>
         <h1 class="aw-page-title">Dados Pessoais</h1>
-
+        
         <h:form id="frm">
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Salvar" update="frm"
-                                     actionListener="#{pessoaVisao.salvar}" icon="ui-icon-disk" />
+                                     actionListener="#{pessoaVisao.salvar()}" icon="ui-icon-disk" />
                 </p:toolbarGroup>
             </p:toolbar>
 
             <div class="ui-fluid">
                 <p:tabView style="margin-top: 20px">
+                    
                     <p:tab title="Dados básicos">
+                        <p:messages id="msgid"></p:messages>
                         <p:panelGrid columns="4" layout="grid"
                                      columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
                                      styleClass="panelgrid-noborder">
+                            
                             <p:outputLabel value="Nome" for="nome" />
                             <p:inputText id="nome" value="#{pessoaVisao.pessoa.nome}" required="true" 
                                          requiredMessage="Nome Obrigatório" placeholder="Nome" />                                                        
@@ -109,10 +112,9 @@
 
                             <p:outputLabel value="Escolariade" for="escolaridade"/>
                             <p:selectOneMenu id="escolaridade" value="#{pessoaVisao.pessoa.escolaridade}" converter="converterPadrao">
-                                <f:selectItem itemLabel="Selecione sua escolaridade" itemValue=""/>
+
                                 <f:selectItems value="#{sistemaVisao.tipoEscolaridadeList}"
                                                var="varTE"
-                                               itemLabel="#{varTE}"
                                                itemValue="#{varTE}"
                                                />
                             </p:selectOneMenu>
@@ -146,74 +148,33 @@
                     </p:tab>
 
                     <p:tab title="Endereços">
-                        <p:commandButton value="Novo endereço" style="width: auto"
-                                         oncomplete="PF('novoEnderecoDialog').show()" />
-
-                        <p:dataTable value="#{pessoaVisao.pessoa.enderecoPessoaList}" var="endereco"
-                                     emptyMessage="Ainda não possui endereços cadastrados"
-                                     style="margin-top: 10px">
-                            <p:column headerText="CEP">
-                                <h:outputText value="#{endereco.cep}"/>
-                            </p:column>
-                            <p:column headerText="Logradouro">
-                                <h:outputText value="#{endereco.logradouro}"/>
-                            </p:column>
-                            <p:column headerText="Número">
-                                <h:outputText value="#{endereco.numero}"/>
-                            </p:column>
-                            <p:column headerText="Complemento">
-                                <h:outputText value="#{endereco.complemento}"/>
-                            </p:column>
-                            <p:column headerText="Bairro" priority="4">
-                                <h:outputText value="#{endereco.bairro}"/>
-                            </p:column>
-                            <p:column headerText="Cidade" priority="6">
-                                <h:outputText value="#{endereco.localidade}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
-
-                    <p:tab title="Observações">
-                        <p:inputTextarea rows="7" />
-                    </p:tab>
-                </p:tabView>
-            </div>
-
-            <p:dialog widgetVar="novoEnderecoDialog" id="novoEnderecoDialog"
-                      header="Novo endereço" resizable="false" responsive="true">
-
-                <div class="ui-fluid">
-                    <form method="get" action=".">
+                        <p:messages id="msgid1"></p:messages>
                         <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
-                                     columnClasses="ui-grid-col-4, ui-grid-col-8">
+                                     columnClasses="ui-grid-col-3, ui-grid-col-9">
                             <p:outputLabel value="CEP" for="cep" />
-                            <p:inputText id="cep" required="true" value="#{pessoaVisao.enderecoPessoa.cep}" placeholder="Endereço" requiredMessage="Endereço bbrigatório!!" >
+                            <p:inputText id="cep" required="true" value="#{pessoaVisao.pessoa.cep}" placeholder="Endereço" requiredMessage="Endereço bbrigatório!!" >
 
                             </p:inputText>
 
                             <p:outputLabel value="Logradouro" for="logradouro" />
-                            <p:inputText id="logradouro" required="true" value="#{pessoaVisao.enderecoPessoa.logradouro}" placeholder="Endereço" requiredMessage="Endereço bbrigatório!!" />
+                            <p:inputText id="logradouro" required="true" value="#{pessoaVisao.pessoa.logradouro}" placeholder="Endereço" requiredMessage="Endereço bbrigatório!!" />
 
                             <p:outputLabel value="Número" for="numero" />
-                            <p:inputText id="numero" required="true" value="#{pessoaVisao.enderecoPessoa.numero}" requiredMessage="Número da Residẽncia é obrigatório!!" placeholder="Número da Casa/Apto"/>
+                            <p:inputText id="numero" required="true" value="#{pessoaVisao.pessoa.numero}" requiredMessage="Número da Residẽncia é obrigatório!!" placeholder="Número da Casa/Apto"/>
 
                             <p:outputLabel value="Bairro" for="bairro" />
-                            <p:inputText id="bairro" value="#{pessoaVisao.enderecoPessoa.bairro}" placeholder="Bairro"/>
+                            <p:inputText id="bairro" value="#{pessoaVisao.pessoa.bairro}" placeholder="Bairro"/>
 
                             <p:outputLabel value="Cidade" for="cidade" />
-                            <p:inputText id="cidade" value="#{pessoaVisao.enderecoPessoa.localidade}" placeholder="Cidade" required="true" requiredMessage="Cidade Obrigatório!!" />
+                            <p:inputText id="cidade" value="#{pessoaVisao.pessoa.cidade}" placeholder="Cidade" required="true" requiredMessage="Cidade Obrigatório!!" />
 
                             <p:outputLabel value="UF" for="uf" />
-                            <p:inputText id="uf" value="#{pessoaVisao.enderecoPessoa.uf}" placeholder="Cidade" required="true" requiredMessage="UF Obrigatório!!" />
-
+                            <p:inputText id="uf" value="#{pessoaVisao.pessoa.uf}" placeholder="UF" required="true" requiredMessage="UF Obrigatório!!"  />
                             <p:outputLabel/>
-                            <p:commandButton value="Adicionar" />
                         </p:panelGrid>
-                    </form>
-                </div>
-
-            </p:dialog>
-
+                    </p:tab>
+                </p:tabView>
+            </div>
         </h:form>
     </ui:define>
 

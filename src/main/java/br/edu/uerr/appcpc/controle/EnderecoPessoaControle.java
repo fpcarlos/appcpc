@@ -6,12 +6,14 @@
 package br.edu.uerr.appcpc.controle;
 
 import br.edu.uerr.appcpc.modelo.EnderecoPessoa;
+import static br.edu.uerr.appcpc.modelo.Pessoa_.cpf;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -43,6 +45,20 @@ public class EnderecoPessoaControle extends AbstractControle implements Serializ
             return aux;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
+        }
+    }
+
+    public EnderecoPessoa pegaEnderecoUltimoPeloIdPessoa(Integer id) throws Exception {
+        try {
+            String sql = "select * from endereco_pessoa where id_pessoa='" + id + "' order by id_pessoa limit 1";
+            Query query = entityManager.createNativeQuery(sql, EnderecoPessoa.class);
+            query.setParameter("id", id);
+
+            return (EnderecoPessoa) query.getSingleResult();
+        } catch (RuntimeException re) {
+            throw new Exception(" Erro" + re.getMessage());
+        } catch (Exception e) {
+            throw new Exception(" Erro" + e.getMessage());
         }
     }
 

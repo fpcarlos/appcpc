@@ -52,6 +52,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pessoa.findByTelefone", query = "SELECT p FROM Pessoa p WHERE p.telefone = :telefone")
     , @NamedQuery(name = "Pessoa.findBySenha", query = "SELECT p FROM Pessoa p WHERE p.senha = :senha")
     , @NamedQuery(name = "Pessoa.findBySenha2", query = "SELECT p FROM Pessoa p WHERE p.senha2 = :senha2")
+    , @NamedQuery(name = "Pessoa.findByCep", query = "SELECT p FROM Pessoa p WHERE p.cep = :cep")
+    , @NamedQuery(name = "Pessoa.findByLogradouro", query = "SELECT p FROM Pessoa p WHERE p.logradouro = :logradouro")
+    , @NamedQuery(name = "Pessoa.findByComplemento", query = "SELECT p FROM Pessoa p WHERE p.complemento = :complemento")
+    , @NamedQuery(name = "Pessoa.findByBairro", query = "SELECT p FROM Pessoa p WHERE p.bairro = :bairro")
+    , @NamedQuery(name = "Pessoa.findByCidade", query = "SELECT p FROM Pessoa p WHERE p.cidade = :cidade")
+    , @NamedQuery(name = "Pessoa.findByUf", query = "SELECT p FROM Pessoa p WHERE p.uf = :uf")
+    , @NamedQuery(name = "Pessoa.findByNumero", query = "SELECT p FROM Pessoa p WHERE p.numero = :numero")
     , @NamedQuery(name = "Pessoa.findByDataHotaAlteracao", query = "SELECT p FROM Pessoa p WHERE p.dataHotaAlteracao = :dataHotaAlteracao")
     , @NamedQuery(name = "Pessoa.findByDataHoraCadastro", query = "SELECT p FROM Pessoa p WHERE p.dataHoraCadastro = :dataHoraCadastro")})
 public class Pessoa implements Serializable {
@@ -123,8 +130,28 @@ public class Pessoa implements Serializable {
     private List<Requerimento> requerimentoList;
     @OneToMany(mappedBy = "idPessoa")
     private List<GrupoUsuario> grupoUsuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoa")
-    private List<EnderecoPessoa> enderecoPessoaList;
+
+    @Size(max = 20)
+    @Column(name = "cep")
+    private String cep;
+    @Size(max = 250)
+    @Column(name = "logradouro")
+    private String logradouro;
+    @Size(max = 100)
+    @Column(name = "complemento")
+    private String complemento;
+    @Size(max = 100)
+    @Column(name = "bairro")
+    private String bairro;
+    @Size(max = 100)
+    @Column(name = "cidade")
+    private String cidade;
+    @Size(max = 2)
+    @Column(name = "uf")
+    private String uf;
+    @Size(max = 20)
+    @Column(name = "numero")
+    private String numero;
 
     public Pessoa() {
     }
@@ -295,15 +322,6 @@ public class Pessoa implements Serializable {
         this.grupoUsuarioList = grupoUsuarioList;
     }
 
-    @XmlTransient
-    public List<EnderecoPessoa> getEnderecoPessoaList() {
-        return enderecoPessoaList;
-    }
-
-    public void setEnderecoPessoaList(List<EnderecoPessoa> enderecoPessoaList) {
-        this.enderecoPessoaList = enderecoPessoaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -345,4 +363,62 @@ public class Pessoa implements Serializable {
         this.senha2 = senha2;
     }
 
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    
+    
 }

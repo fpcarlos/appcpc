@@ -92,10 +92,11 @@ public class EnderecoPessoa implements Serializable {
     @Size(max = 20)
     @Column(name = "numero")
     private String numero;
+    /*
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoa;
-
+*/
     public EnderecoPessoa() {
     }
 
@@ -204,7 +205,7 @@ public class EnderecoPessoa implements Serializable {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-
+/*
     public Pessoa getIdPessoa() {
         return idPessoa;
     }
@@ -212,7 +213,7 @@ public class EnderecoPessoa implements Serializable {
     public void setIdPessoa(Pessoa idPessoa) {
         this.idPessoa = idPessoa;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;
