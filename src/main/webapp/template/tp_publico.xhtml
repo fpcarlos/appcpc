@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>CPCV UERR</title>                
+            </f:facet>
+
+
+            <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css" />
+            <!--<h:outputStylesheet library="bootstrap" name="css/bootstrap-theme.min.css" />-->
+            <h:outputScript library="bootstrap" name="js/bootstrap.min.js" />
+            <h:outputScript library="jquery" name="jquery-3.2.1.min.js" />
+
+            
+            <script>
+                $a = jQuery.noConflict();
+                $a(document).ready(function () {
+                    var heightWindow = $a(window).height();
+                    var heightBody = document.body.clientHeight;
+                    if (heightWindow > heightBody) {
+                        $a("#footer").css('position', 'fixed');
+                        $a("#footer").css('bottom', '0');
+                    }
+                });
+            </script>
+            
+
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="index2.html" class="image">
+                                <!-- logo for regular state and mobile devices -->
+                                <h:graphicImage library="img" name="logo-uerr.png" width="10%" />
+                                <span class="logo-lg"><b>CPCV</b> UERR</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            Sistema
+                        </div>
+                    </div>
+
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="100" header="Esconder"  collapsible="true">
+                    <div class="row">
+                        <div class="col-lg-12" align="center">
+                            CPCV UERR
+                        </div>
+                        <div class="col-lg-12" align="center">
+                            Sistema de Gestão de Concursos, Vestibulares e  Seletivos
+                        </div>
+                    </div>
+
+                </p:layoutUnit>
+                
+
+                <p:layoutUnit position="center">
+                    <h:form id="formTemplet">
+                        <p:confirmDialog global="true" showEffect="fade">
+                            <p:commandButton value="Sim" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </h:form>
+                    <ui:insert name="content">Content</ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+
+</html>
+

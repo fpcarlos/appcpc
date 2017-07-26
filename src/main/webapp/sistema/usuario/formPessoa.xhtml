@@ -1,0 +1,169 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css" />
+    </h:head>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">       
+            <h:form id="PessoaForm">
+                <!--<p:messages id="msgid"></p:messages>-->
+                <h:panelGroup id="display" layout="block">                    
+
+                    <fieldset>
+                        <legend>Cadastro de Pessoas</legend>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-md-3">
+                                    Nome: 
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="nome" value="#{pessoaVisao.pessoa.nome}" required="true" size="60" requiredMessage="Noem obrigatório!!!"/>
+                                </div>
+                                <div class="col-md-3">
+                                    Nome: (Nome Social): 
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="nomeSocial" value="#{pessoaVisao.pessoa.nomeSocial}" size="30"/>
+                                </div>
+                                <div class="col-md-3">
+                                    Data de Nascimento: 
+                                </div>
+                                <div class="col-md-9">
+                                    <p:calendar id="dataNascimento" value="#{pessoaVisao.pessoa.dataNascimento}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" requiredMessage="Data de Nascimento é obrigatório!!!"/>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    Sexo: 
+                                </div>
+                                <div class="col-md-9">
+                                    <p:selectOneMenu id="sexo" value="#{pessoaVisao.pessoa.sexo}" required="true" requiredMessage="Sexo não selecionado!" >
+                                        <f:selectItem itemLabel="Selecione" itemValue=""  />
+                                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                        <f:selectItem itemLabel="Ferminino" itemValue="F" />
+                                    </p:selectOneMenu>  
+                                </div>
+
+                                <div class="col-md-3">
+                                    Escolaridade: 
+                                </div>
+                                <div class="col-md-9">
+                                    <p:selectOneMenu id="escolaridade" value="#{pessoaVisao.pessoa.escolaridade}" required="true" requiredMessage="Sexo não selecionado!" >
+                                        <f:selectItem itemLabel="Selecione" itemValue=""  />
+                                        <f:selectItem itemLabel="Nível Fundamental (1º Grau)" itemValue="1" />
+                                        <f:selectItem itemLabel="Nível Médio (2º Grau)" itemValue="2" />
+                                        <f:selectItem itemLabel="Nível Superior Incompleto" itemValue="3" />
+                                        <f:selectItem itemLabel="Nível Superior Completo" itemValue="4" />
+                                        <f:selectItem itemLabel="Pós-graduação" itemValue="5" />
+                                        <f:selectItem itemLabel="Mestrado" itemValue="6" />
+                                        <f:selectItem itemLabel="Doutorado" itemValue="7" />
+                                    </p:selectOneMenu>  
+                                </div>
+                                <div class="col-md-3">
+                                    Nome do Pai 
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="nomePai" value="#{pessoaVisao.pessoa.nomePai}" size="100"/>
+                                </div>
+                                <div class="col-md-3">
+                                    Nome da Mãe 
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="nomeMae" value="#{pessoaVisao.pessoa.nomeMae}" size="100"/>
+                                </div>                                
+                                <div class="col-md-3">
+                                    CPF 
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="cpf" value="#{pessoaVisao.pessoa.cpf}" size="20"/>
+                                </div>
+                                <div class="col-md-3">
+                                    RG
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="rg" value="#{pessoaVisao.pessoa.rg}"  size="20"/>
+                                </div>
+                                <div class="col-md-3">
+                                    E-Mail
+                                </div>
+                                <div class="col-md-9">                              
+                                    <p:inputText id="email" value="#{pessoaVisao.pessoa.email}"  size="100"/>
+                                </div>
+                                
+                                <!--
+                                <div class="col-md-1">
+                                    Tipo: 
+                                </div>
+                                <div class="col-md-11">
+                                    <p:selectOneMenu id="idTipoUsuario" value="#{usuarioBean.usuario.idTipoUsuario}" converter="converterPadrao" >
+                                        <f:selectItems value="#{usuarioBean.listTipoUsuario}"
+                                                       var="idTipoUsuarioItem"
+                                                       itemValue="#{idTipoUsuarioItem}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </fieldset>
+                </h:panelGroup>
+                <p:commandButton value="Salvar" update=":PessoaForm :PessoaListForm"
+                                 actionListener="#{pessoaVisao.salvar}" icon="ui-icon-disk" />
+                <p:commandButton value="Cancelar"
+                                 action="#{pessoaVisao.abrirCadastro}" icon="ui-icon-close"
+                                 immediate="true" />
+
+            </h:form>
+            <h:form id="PessoaListForm">
+                <h:panelGroup id="Lista2">
+                    <p:dataTable id="datalist" value="#{pessoaVisao.listPessoa}" var="s"
+                                 selectionMode="single"
+                                 paginator="true"
+                                 rowKey="#{s.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="Nenhuma Pessoa Cadastrada"
+                                 sortBy="#{s.id}" 
+                                 sortOrder="descending"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{s.id}"/>
+                        </p:column>
+                        <p:column filterBy="#{s.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="Nome"/>
+                            </f:facet>
+                            <h:outputText value="#{s.nome}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Sexo"/>
+                            </f:facet>
+                            <h:outputText value="#{s.sexo}"/>
+                        </p:column>
+                        <p:column headerText="Opções" width="20%">
+
+                            <p:commandButton icon="ui-icon-pencil"
+                                             action="#{pessoaVisao.editar(s)}"
+                                             title="Editar" escape="true" />
+
+                            <p:commandButton icon="ui-icon-trash"
+                                             action="#{pessoaVisao.remover(s)}">
+
+                                <p:confirm header="Remover"
+                                           message="Tem certeza que deseja excluir o Usuário: #{s.nome}... "
+                                           icon="ui-icon-alert" />
+
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

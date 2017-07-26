@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>        
+        <h:outputScript library="jquery" name="jquery-3.2.1.min.js" />        
+    </h:head>
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">       
+            <h:form id="PessoaForm">
+                <p:messages id="msgid"></p:messages>
+                <h:panelGroup id="display" layout="block">                    
+
+                    <fieldset>
+                        <legend>Dados Pessoais</legend>
+                        <p:panelGrid columns="4" layout="grid"
+                                     columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+                                     styleClass="panelgrid-noborder">
+                            <p:outputLabel value="Nome" for="nome" />
+                            <p:inputText id="nome" value="#{pessoaVisao.pessoa.nome}" required="true" 
+                                         requiredMessage="Nome Obrigatório" placeholder="Nome" />                                                        
+                            <p:outputLabel value="Nome Social" for="nomeSocial" />
+                            <p:inputText id="nomeSocial" value="#{pessoaVisao.pessoa.nomeSocial}" placeholder="Nome Social Opcional" />
+
+                            <p:outputLabel value="Data de Nascimento" for="dataNascimento"/>
+                            <p:calendar id="dataNascimento" value="#{pessoaVisao.pessoa.dataNascimento}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true"  required="true" requiredMessage="Data de Nascimento é obrigatório!!!" placeholder="Data de Nascimento"/>
+
+                            <p:outputLabel value="Sexo" for="sexo"/>
+                            <p:selectOneMenu id="sexo" value="#{pessoaVisao.pessoa.sexo}" required="true" requiredMessage="Sexo não selecionado!" placeholder="Selecione" >
+                                <f:selectItem itemLabel="Selecione" itemValue=""/>
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Ferminino" itemValue="F" />
+                            </p:selectOneMenu>  
+
+                            <p:outputLabel value="Escolariade" for="escolaridade"/>
+                            <p:selectOneMenu id="escolaridade" value="#{pessoaVisao.pessoa.escolaridade}" required="true" requiredMessage="Nível de escolaridade não selecionado!" >
+                                <f:selectItem itemLabel="Selecione" itemValue=""  />
+                                <f:selectItem itemLabel="Nível Fundamental (1º Grau)" itemValue="1" />
+                                <f:selectItem itemLabel="Nível Médio (2º Grau)" itemValue="2" />
+                                <f:selectItem itemLabel="Nível Superior Incompleto" itemValue="3" />
+                                <f:selectItem itemLabel="Nível Superior Completo" itemValue="4" />
+                                <f:selectItem itemLabel="Pós-graduação" itemValue="5" />
+                                <f:selectItem itemLabel="Mestrado" itemValue="6" />
+                                <f:selectItem itemLabel="Doutorado" itemValue="7" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="E-Mail" for="email"/>
+                            <p:inputText id="email" value="#{pessoaVisao.pessoa.email}" required="true" requiredMessage="Endereço de E-Mail é obrigatório" placeholder="Endereço de e-Mail"/>
+
+                            <p:outputLabel value="Nome Pai" for="nomePai" />
+                            <p:inputText id="nomePai" value="#{pessoaVisao.pessoa.nomePai}" placeholder="Nome do Pai" style="width:  70%" />
+
+                            <p:outputLabel value="Nome Mãe" for="nomeMae" />
+                            <p:inputText id="nomeMae" value="#{pessoaVisao.pessoa.nomeMae}" placeholder="Nome da Mãe"  style="width: 70%" />
+
+                            <p:outputLabel value="CPF" for="cpf" />
+                            <p:inputMask id="cpf" value="#{pessoaVisao.pessoa.cpf}" required="true" mask="999.999.999-99"
+                                         style="width: 70%" placeholder="CPF" requiredMessage="CPF Obrigatório!!" />
+
+                            <p:outputLabel value="RG" for="rg" />
+                            <p:inputText id="rg" value="#{pessoaVisao.pessoa.rg}" required="true" 
+                                         style="width: 70%" placeholder="RG" requiredMessage="RG Obrigatório!!" />
+
+                            <p:outputLabel value="Telefone" for="telefone" />
+                            <p:inputMask id="telefone" value="#{pessoaVisao.pessoa.telefone}" placeholder="Telefone para contato"
+                                         mask="(99)99999-9999"/>
+
+                            <p:outputLabel value="Celular" for="celular" />
+                            <p:inputMask id="celular" value="#{pessoaVisao.pessoa.celular}" placeholder="Número Celular" 
+                                         mask="(99)99999-9999" required="true" requiredMessage="Telefone para contato é Obrigatório"/>
+
+                        </p:panelGrid>
+
+                        <legend>Endereço</legend>
+                        <p:panelGrid columns="4" layout="grid" styleClass="panelgrid-noborder"
+                                     columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+                            <p:outputLabel value="CEP" for="cep" />
+                            <p:inputText id="cep" required="true" value="#{pessoaVisao.enderecoPessoa.cep}" placeholder="CEP" 
+                                         requiredMessage="Endereço bbrigatório!!" style="width: 30%"  />
+
+
+
+                            <p:outputLabel value="Logradouro" for="logradouro" />
+                            <p:inputText id="logradouro" required="true" value="#{pessoaVisao.enderecoPessoa.logradouro}" 
+                                         placeholder="Endereço" requiredMessage="Endereço bbrigatório!!" />
+
+                            <p:outputLabel value="Número" for="numero" />
+                            <p:inputText id="numero" required="true" value="#{pessoaVisao.enderecoPessoa.numero}" 
+                                         requiredMessage="Número da Residẽncia é obrigatório!!" placeholder="No da Casa/Apto" style="width: 30%"/>
+
+                            <p:outputLabel value="Bairro" for="bairro" />
+                            <p:inputText id="bairro" value="#{pessoaVisao.enderecoPessoa.bairro}" 
+                                         placeholder="Bairro" required="true" requiredMessage="Bairro é obrigatório"/>
+
+                            <p:outputLabel value="Cidade" for="cidade" />
+                            <p:inputText id="cidade" value="#{pessoaVisao.enderecoPessoa.localidade}" placeholder="Cidade" required="true" requiredMessage="Cidade Obrigatório!!" />
+
+                            <p:outputLabel value="UF" for="uf" />
+                            <p:inputText id="uf" value="#{pessoaVisao.enderecoPessoa.uf}" placeholder="Cidade" 
+                                         required="true" requiredMessage="UF Obrigatório!!" style="width: 30%" />
+
+                            <p:outputLabel/>                                    
+                        </p:panelGrid>                            
+                        <legend>Senha de Acesso</legend>
+                        <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
+                                     columnClasses="ui-grid-col-4, ui-grid-col-8">
+                            <h:outputText value="Senha:" />
+                            <p:password id="senha"
+                                        label="Senha"
+                                        value="#{pessoaVisao.pessoa.password}"
+                                        size="10"
+                                        maxlength="10"
+                                        required="true"
+                                        feedback="true"
+                                        match="confsenha"
+                                        validatorMessage="A senha de confirmação está diferente!">
+
+                            </p:password>
+                            <h:outputText value="Confirma Senha:" />
+                            <p:password id="confsenha"
+                                        label="Confirma Senha"
+                                        value="#{pessoaVisao.confirmaSenha}"
+                                        size="10"
+                                        maxlength="10"
+                                        required="true">
+
+                            </p:password>           
+                        </p:panelGrid>
+
+                    </fieldset>
+                </h:panelGroup>
+                <p:commandButton value="Salvar" update=":PessoaForm"
+                                 actionListener="#{pessoaVisao.salvar}" icon="ui-icon-disk" />
+                <p:commandButton value="Cancelar"
+                                 action="#{pessoaVisao.abrirCadastro}" icon="ui-icon-close"
+                                 immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
