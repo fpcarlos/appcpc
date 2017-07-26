@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -47,9 +48,12 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public String abrirCadastro() {
         try {
             pessoa = new Pessoa();
-            pessoa = pessoaControle.pegaPessoaId(94797);
+            //Random random = new Random();
+            //int x = random.nextInt(100000);
+            pessoa = pessoaControle.pegaPessoaId(94774);
             //listPessoa = new ArrayList<>();
-            //enderecoPessoa = new EnderecoPessoa();
+            enderecoPessoa = new EnderecoPessoa();
+            enderecoPessoa = enderecoPessoaControle.pegaEnderecoPessoaPeloId(pessoa.getId());
             System.out.println(pessoa.getNome());
             //listEnderecoPessoa = new ArrayList<>();            
 
@@ -63,14 +67,17 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
 
     public void salvar() {
         try {
+            System.out.println(pessoa.getNomeSocial());
             pessoaControle.salvar(pessoa);
+            //int x = pessoa.getId();
 
             showFacesMessage("salvo com sucesso!!!", 2);
             pessoa = new Pessoa();
+            //pessoa = pessoaControle.pegaPessoaId(x);
             //listPessoa = new ArrayList<>();
             //listPessoa = pessoaControle.findAll();
-            //FacesContext.getCurrentInstance().getExternalContext().redirect("/evento/sistema/usuario/listaUsuarios.xhtml");
-            //return redirect("/sistema/usuario/listaUsuarios.xhtml?faces-redirect=true");
+            //FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml.xhtml");
+            //return redirect("/index.xhtml?faces-redirect=true");
         } catch (Exception e) {
             showFacesMessage(e.getMessage(), 4);
             //return null;

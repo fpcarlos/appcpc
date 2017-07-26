@@ -80,7 +80,8 @@
         <h:form id="frm">
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Salvar" />
+                    <p:commandButton value="Salvar" update="frm"
+                                     actionListener="#{pessoaVisao.salvar}" icon="ui-icon-disk" />
                 </p:toolbarGroup>
             </p:toolbar>
 
@@ -151,11 +152,17 @@
                         <p:dataTable value="#{pessoaVisao.pessoa.enderecoPessoaList}" var="endereco"
                                      emptyMessage="Ainda não possui endereços cadastrados"
                                      style="margin-top: 10px">
+                            <p:column headerText="CEP">
+                                <h:outputText value="#{endereco.cep}"/>
+                            </p:column>
                             <p:column headerText="Logradouro">
                                 <h:outputText value="#{endereco.logradouro}"/>
                             </p:column>
                             <p:column headerText="Número">
                                 <h:outputText value="#{endereco.numero}"/>
+                            </p:column>
+                            <p:column headerText="Complemento">
+                                <h:outputText value="#{endereco.complemento}"/>
                             </p:column>
                             <p:column headerText="Bairro" priority="4">
                                 <h:outputText value="#{endereco.bairro}"/>
