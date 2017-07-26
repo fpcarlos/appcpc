@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "IncricaoAtendimentoEspecial.findAll", query = "SELECT i FROM IncricaoAtendimentoEspecial i")
     , @NamedQuery(name = "IncricaoAtendimentoEspecial.findById", query = "SELECT i FROM IncricaoAtendimentoEspecial i WHERE i.id = :id")})
-public class IncricaoAtendimentoEspecial implements Serializable {
+public class InscricaoAtendimentoEspecial implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,10 +46,10 @@ public class IncricaoAtendimentoEspecial implements Serializable {
     @ManyToOne
     private TipoAtendimentoEspecial idTipoAtendimentoEspecial;
 
-    public IncricaoAtendimentoEspecial() {
+    public InscricaoAtendimentoEspecial() {
     }
 
-    public IncricaoAtendimentoEspecial(Integer id) {
+    public InscricaoAtendimentoEspecial(Integer id) {
         this.id = id;
     }
 
@@ -87,10 +87,10 @@ public class IncricaoAtendimentoEspecial implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof IncricaoAtendimentoEspecial)) {
+        if (!(object instanceof InscricaoAtendimentoEspecial)) {
             return false;
         }
-        IncricaoAtendimentoEspecial other = (IncricaoAtendimentoEspecial) object;
+        InscricaoAtendimentoEspecial other = (InscricaoAtendimentoEspecial) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

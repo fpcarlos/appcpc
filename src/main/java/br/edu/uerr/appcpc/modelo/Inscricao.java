@@ -83,7 +83,7 @@ public class Inscricao implements Serializable {
     @ManyToOne
     private SituacaoInscricao idSituacaoInscricao;
     @OneToMany(mappedBy = "idInscricao")
-    private List<IncricaoAtendimentoEspecial> incricaoAtendimentoEspecialList;
+    private List<InscricaoAtendimentoEspecial> inscricaoAtendimentoEspecialList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInscricao")
     private List<ArquivoCartaoResposta> arquivoCartaoRespostaList;
 
@@ -181,12 +181,12 @@ public class Inscricao implements Serializable {
     }
 
     @XmlTransient
-    public List<IncricaoAtendimentoEspecial> getIncricaoAtendimentoEspecialList() {
-        return incricaoAtendimentoEspecialList;
+    public List<InscricaoAtendimentoEspecial> getIncricaoAtendimentoEspecialList() {
+        return inscricaoAtendimentoEspecialList;
     }
 
-    public void setIncricaoAtendimentoEspecialList(List<IncricaoAtendimentoEspecial> incricaoAtendimentoEspecialList) {
-        this.incricaoAtendimentoEspecialList = incricaoAtendimentoEspecialList;
+    public void setIncricaoAtendimentoEspecialList(List<InscricaoAtendimentoEspecial> inscricaoAtendimentoEspecialList) {
+        this.inscricaoAtendimentoEspecialList = inscricaoAtendimentoEspecialList;
     }
 
     @XmlTransient

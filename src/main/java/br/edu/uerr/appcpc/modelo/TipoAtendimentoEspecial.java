@@ -50,7 +50,7 @@ public class TipoAtendimentoEspecial implements Serializable {
     @Column(name = "sub_grupo")
     private String subGrupo;
     @OneToMany(mappedBy = "idTipoAtendimentoEspecial")
-    private List<IncricaoAtendimentoEspecial> incricaoAtendimentoEspecialList;
+    private List<InscricaoAtendimentoEspecial> inscricaoAtendimentoEspecialList;
 
     public TipoAtendimentoEspecial() {
     }
@@ -84,12 +84,12 @@ public class TipoAtendimentoEspecial implements Serializable {
     }
 
     @XmlTransient
-    public List<IncricaoAtendimentoEspecial> getIncricaoAtendimentoEspecialList() {
-        return incricaoAtendimentoEspecialList;
+    public List<InscricaoAtendimentoEspecial> getIncricaoAtendimentoEspecialList() {
+        return inscricaoAtendimentoEspecialList;
     }
 
-    public void setIncricaoAtendimentoEspecialList(List<IncricaoAtendimentoEspecial> incricaoAtendimentoEspecialList) {
-        this.incricaoAtendimentoEspecialList = incricaoAtendimentoEspecialList;
+    public void setIncricaoAtendimentoEspecialList(List<InscricaoAtendimentoEspecial> inscricaoAtendimentoEspecialList) {
+        this.inscricaoAtendimentoEspecialList = inscricaoAtendimentoEspecialList;
     }
 
     @Override
