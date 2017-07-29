@@ -51,11 +51,13 @@ public class SistemaVisao extends AbstractVisao implements Serializable {
         try {
             if (tipoEscolaridadeList == null || tipoEscolaridadeList.size() < 1) {
                 tipoEscolaridadeList = sistemaControle.getTipoEscolaridade();
+                /*
                 tipoEscolaridadeMap = new HashMap<String, String>();
                 for (String x : tipoEscolaridadeList) {
                     tipoEscolaridadeMap.put(x.concat(x), x.concat(x));
 
                 }
+                 */
 
             }
 
