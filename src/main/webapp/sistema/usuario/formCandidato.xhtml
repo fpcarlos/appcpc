@@ -76,7 +76,7 @@
             </script>
         </h:head>
         <h1 class="aw-page-title">Dados Pessoais</h1>
-        
+
         <h:form id="frm">
             <p:toolbar>
                 <p:toolbarGroup>
@@ -87,13 +87,13 @@
 
             <div class="ui-fluid">
                 <p:tabView style="margin-top: 20px">
-                    
+
                     <p:tab title="Dados básicos">
                         <p:messages id="msgid"></p:messages>
                         <p:panelGrid columns="4" layout="grid"
                                      columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
                                      styleClass="panelgrid-noborder">
-                            
+
                             <p:outputLabel value="Nome" for="nome" />
                             <p:inputText id="nome" value="#{pessoaVisao.pessoa.nome}" required="true" 
                                          requiredMessage="Nome Obrigatório" placeholder="Nome" />                                                        
@@ -111,12 +111,16 @@
                             </p:selectOneMenu>  
 
                             <p:outputLabel value="Escolariade" for="escolaridade"/>
-                            <p:selectOneMenu id="escolaridade" value="#{pessoaVisao.pessoa.escolaridade}" converter="converterPadrao">
+                            <p:selectOneMenu id="escolaridade" value="#{pessoaVisao.pessoa.escolaridade}" >
+                                <f:selectItem itemLabel="Selecione" itemValue=""  />
+                                <f:selectItem itemLabel="Nível Fundamental (1º Grau)" itemValue="Nível Fundamental (1º Grau)" />
+                                <f:selectItem itemLabel="Nível Médio (2º Grau)" itemValue="Nível Médio (2º Grau)" />
+                                <f:selectItem itemLabel="Nível Superior Incompleto" itemValue="Nível Superior Incompleto" />
+                                <f:selectItem itemLabel="Nível Superior Completo" itemValue="Nível Superior Completo" />
+                                <f:selectItem itemLabel="Pós-graduação" itemValue="Pós-graduação" />
+                                <f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />
+                                <f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />
 
-                                <f:selectItems value="#{sistemaVisao.tipoEscolaridadeList}"
-                                               var="varTE"
-                                               itemValue="#{varTE}"
-                                               />
                             </p:selectOneMenu>
 
                             <p:outputLabel value="E-Mail" for="email"/>

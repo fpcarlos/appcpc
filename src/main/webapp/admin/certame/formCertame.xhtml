@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1 class="aw-page-title">Certames</h1>
+        <h:form id="CertameForm">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Salvar" update="CertameForm"
+                                     actionListener="#{certameVisao.salvar}" icon="ui-icon-disk" />
+
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:messages id="msgid"></p:messages>
+            <h:panelGroup id="display" layout="block">                    
+
+                <fieldset>
+                    <legend>Cadastro de Certames</legend>
+                    <p:panelGrid columns="2" layout="grid"
+                                 columnClasses="ui-grid-col-3, ui-grid-col-9"
+                                 styleClass="panelgrid-noborder">
+
+                        <p:outputLabel value="Exercício" for="exercicio" />
+                        <p:inputText id="exercicio" value="#{certameVisao.certame.exercicio}" required="true" 
+                                     requiredMessage="Ano de Exercício é Obrigatório" placeholder="Exercício (Ano)" />
+
+                        <p:outputLabel value="Título do Certame" for="titulo" />
+                        <p:inputText id="titulo" value="#{certameVisao.certame.titulo}" required="true" 
+                                     requiredMessage="Título é Obrigatório" placeholder="Nome do Certame" size="100" />
+
+                        <p:outputLabel value="Sub título do Certame" for="subtitulo" />
+                        <p:inputText id="subtitulo" value="#{certameVisao.certame.subtitulo}"  placeholder="Completo para o Certame" size="100" />
+
+                        <p:outputLabel value="Instituição proponente" for="instituicao" />
+                        <p:inputText id="instituicao" value="#{certameVisao.certame.instituicao}" required="true" 
+                                     requiredMessage="A Instituição é Obrigatório" placeholder="Nome da Instituição proponente" size="100" />
+
+                        <p:outputLabel value="Tipo do Certame" for="tipo"/>
+                        <p:selectOneMenu id="tipo" value="#{certameVisao.certame.tipo}" required="true" requiredMessage="Tipo do certame não selecionado!" placeholder="Selecione" >
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Vestibular" itemValue="1" />
+                            <f:selectItem itemLabel="Concurso" itemValue="2" />
+                            <f:selectItem itemLabel="Seletivo" itemValue="3" />
+                        </p:selectOneMenu> 
+
+                        <p:outputLabel value="Inicio das Inscrição" for="dataInicioInscricao"/>
+                        <p:calendar id="dataInicioInscricao" value="#{certameVisao.certame.dataInicioInscricao}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" required="true" requiredMessage="Data de Início das Inscrições é obrigatório!!!" placeholder="Inicio da Inscrição"/>
+
+                        <p:outputLabel value="Fim das Inscrição" for="dataFimInscricao"/>
+                        <p:calendar id="dataFimInscricao" value="#{certameVisao.certame.dataFimInscricao}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" required="true" requiredMessage="Data de Fim das Inscrições é obrigatório!!!" placeholder="Fim da Inscrição"/>
+
+                        <p:outputLabel value="Inicio das Isenções" for="dataInicioIsencao"/>
+                        <p:calendar id="dataInicioIsencao" value="#{certameVisao.certame.dataInicioIsencao}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" required="true" requiredMessage="Data de Início das Isenções é obrigatório!!!" placeholder="Inicio da isenção"/>
+
+                        <p:outputLabel value="Fim das Isenções" for="dataFimIsencao"/>
+                        <p:calendar id="dataFimIsencao" value="#{certameVisao.certame.dataFimIsencao}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" required="true" requiredMessage="Data de Fim das Isenções é obrigatório!!!" placeholder="Fim da Isenção"/>
+
+                        <p:outputLabel value="Vencimento do Boleto" for="dataValidadeBoleto"/>
+                        <p:calendar id="dataValidadeBoleto" value="#{certameVisao.certame.dataValidadeBoleto}" showOn="button" locale="pt_BR" pattern="dd/MM/yyyy" rendered="true" required="true" requiredMessage="Data de Validade do Boleto é obrigatório!!!" placeholder="Data Validade"/>
+
+
+
+
+
+
+                    </p:panelGrid>
+
+
+                </fieldset>
+            </h:panelGroup>            
+        </h:form>
+        <h:form id="CertameListForm">
+            <h:panelGroup id="Lista2">
+                <p:dataTable id="datalist" value="#{certameVisao.listCertame}" var="s"
+                             selectionMode="single"
+                             paginator="true"
+                             rowKey="#{s.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="Nenhuma Diocese Cadastrada"
+                             sortBy="#{s.id}" 
+                             sortOrder="descending"
+                             >
+                    <p:column style="width: 10%">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{s.id}"/>
+                    </p:column>
+                    <p:column filterBy="#{s.titulo}">
+                        <f:facet name="header">
+                            <h:outputText value="Título"/>
+                        </f:facet>
+                        <h:outputText value="#{s.titulo}"/>
+                    </p:column>
+                    <p:column filterBy="#{s.instituicao}">
+                        <f:facet name="header">
+                            <h:outputText value="Instituição"/>
+                        </f:facet>
+                        <h:outputText value="#{s.instituicao}"/>
+                    </p:column>
+                    <p:column headerText="Período de Inscrição" colspan="2" width="15%">
+                        <span class="label-fase">Início</span><br></br>
+                        <h:outputText  value="#{s.dataInicioInscricao}">
+                            <f:convertDateTime pattern="dd/MM/YYYY" />
+                        </h:outputText>
+                        <br></br>
+                        <span class="label-fase">Fim</span><br></br>
+                        <h:outputText  value="#{s.dataFimInscricao}">
+                            <f:convertDateTime pattern="dd/MM/YYYY" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Opções" width="20%">
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         action="#{certameVisao.editar(s)}"
+                                         title="Editar" escape="true" />
+
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGroup>
+        </h:form>        
+    </ui:define>
+
+</ui:composition>

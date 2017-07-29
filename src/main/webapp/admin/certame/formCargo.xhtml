@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1 class="aw-page-title">Cargos</h1>
+        <h:form id="CargoForm">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo" update=":CargoForm :CargoListForm"
+                                     actionListener="#{cargoVisao.abrirCadastro}" icon="ui-icon-disk" />
+                    <p:commandButton value="Salvar" update=":CargoForm :CargoListForm"
+                                     actionListener="#{cargoVisao.salvar}" icon="ui-icon-disk" />
+
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:messages id="msgid"></p:messages>
+            <h:panelGroup id="display" layout="block">                    
+
+                <fieldset>
+                    <legend>Cadastro de Cargos</legend>
+                    <p:panelGrid columns="2" layout="grid"
+                                 columnClasses="ui-grid-col-3, ui-grid-col-9"
+                                 styleClass="panelgrid-noborder">
+
+                        <p:outputLabel value="Certame" for="certame" />
+                        <p:selectOneMenu id="certame"
+                                         value="#{cargoVisao.cargo.idCertame}"
+                                         converter="converterPadrao" required="true" requiredMessage="Selecione o Certame">
+                            <f:selectItem itemLabel="Selecione o Certame"
+                                          itemValue="" />
+                            <f:selectItems value="#{cargoVisao.listCertame}"
+                                           var="varCE" itemLabel="#{varCE.titulo}" itemValue="#{varCE}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Tipo da Vaga" for="tipoVaga" />
+                        <p:selectOneMenu id="tipoVaga"
+                                         value="#{cargoVisao.cargo.idTipoVaga}"
+                                         converter="converterPadrao" required="true" requiredMessage="Selecione o Tipo da Vaga">
+                            <f:selectItem itemLabel="Selecione Tipo da Vaga do Cargo"
+                                          itemValue="" />
+                            <f:selectItems value="#{cargoVisao.listTipoVaga}"
+                                           var="varTV" itemLabel="#{varTV.nome}" itemValue="#{varTV}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Nome do Cargo" for="nome" />
+                        <p:inputText id="nome" value="#{cargoVisao.cargo.nome}" required="true" 
+                                     requiredMessage="Nome do Cargo é Obrigatório" placeholder="Nome do Cargo" size="50" />
+
+                        <p:outputLabel value="Nome curto do Cargo" for="nomeCurto" />
+                        <p:inputText id="nomeCurto" value="#{cargoVisao.cargo.nomeCurto}" required="true" 
+                                     requiredMessage="Nome Curto do Cargo é Obrigatório"  placeholder="Nome Curto do Cargo" size="30" />
+
+                        <p:outputLabel value="Qtd de Vagas" for="qtdVaga" />
+                        <p:inputText id="qtdVaga" value="#{cargoVisao.cargo.qtdVaga}" required="true" 
+                                     requiredMessage="Qtd de Vagas do Cargo é Obrigatório" placeholder="Qtd de Vagas do Cargo" size="10" />
+
+                        <p:outputLabel value="Valor da Taxa do Cargo" for="valorVaga" />
+                        <p:inputText id="valorVaga" value="#{cargoVisao.cargo.valorVaga}" required="true" 
+                                     requiredMessage="Valor da Taxa de Inscrição do Cargo é Obrigatório" placeholder="Valor" size="10" >
+                            <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                        </p:inputText>
+                        
+                        <p:outputLabel value="Status" for="status" />
+                        <p:selectOneMenu id="status"
+                                         value="#{cargoVisao.cargo.status}"
+                                         >
+                            <f:selectItem itemLabel="Status do Cargo"
+                                          itemValue="" />
+                            <f:selectItems value="#{cargoVisao.listStatus}"
+                                           var="varST" itemLabel="#{varST.nome}" itemValue="#{varST.id}" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </fieldset>
+            </h:panelGroup>            
+        </h:form>
+        <h:form id="CargoListForm">
+            <h:panelGroup id="Lista2">
+                <p:dataTable id="datalist" value="#{cargoVisao.listCargo}" var="s"
+                             selectionMode="single"
+                             paginator="true"
+                             rowKey="#{s.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="Nenhuma Diocese Cadastrada"
+                             sortBy="#{s.id}" 
+                             sortOrder="descending"
+                             >
+                    <p:column style="width: 10%">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{s.id}"/>
+                    </p:column>
+                    <p:column filterBy="#{s.idCertame.titulo}">
+                        <f:facet name="header">
+                            <h:outputText value="certame"/>
+                        </f:facet>
+                        <h:outputText value="#{s.idCertame.titulo}"/>
+                    </p:column>
+                    <p:column filterBy="#{s.nome}">
+                        <f:facet name="header">
+                            <h:outputText value="Cargo"/>
+                        </f:facet>
+                        <h:outputText value="#{s.nome}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Qtd Vagas"/>
+                        </f:facet>
+                        <h:outputText value="#{s.qtdVaga}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="#{s.valorVaga}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Período de Inscrição" colspan="2" width="15%">
+                        <span class="label-fase">Início</span><br></br>
+                        <h:outputText  value="#{s.idCertame.dataInicioInscricao}">
+                            <f:convertDateTime pattern="dd/MM/YYYY" />
+                        </h:outputText>
+                        <br></br>
+                        <span class="label-fase">Fim</span><br></br>
+                        <h:outputText  value="#{s.idCertame.dataFimInscricao}">
+                            <f:convertDateTime pattern="dd/MM/YYYY" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Opções" width="20%">
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         action="#{cargoVisao.editar(s)}"
+                                         title="Editar" escape="true" />
+
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGroup>
+        </h:form>        
+    </ui:define>
+
+</ui:composition>

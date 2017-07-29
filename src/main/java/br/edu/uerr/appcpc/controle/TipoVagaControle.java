@@ -60,24 +60,11 @@ public class TipoVagaControle extends AbstractControle implements Serializable {
 
     }
 
-    public TipoVaga pegaTipoVagaPeloCpf(String cpf) throws Exception {
-        try {
-            String sql = "select * from cargo where cpf='" + cpf + "'";
-            Query query = entityManager.createNativeQuery(sql, TipoVaga.class);
-            query.setParameter("cpf", cpf);
-
-            return (TipoVaga) query.getSingleResult();
-        } catch (RuntimeException re) {
-            throw new Exception(" Erro" + re.getMessage());
-        } catch (Exception e) {
-            throw new Exception(" Erro" + e.getMessage());
-        }
-    }
-
+    
     public List<TipoVaga> findAll() throws Exception {
         try {
             List<TipoVaga> listaTipoVaga = new ArrayList<>();
-            String sql = "select * from cargo";
+            String sql = "select * from tipo_vaga";
             listaTipoVaga = executaSqlNativo(sql, TipoVaga.class, entityManager);
             return listaTipoVaga;
 

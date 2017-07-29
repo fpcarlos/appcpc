@@ -49,6 +49,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "EnderecoPessoa.findByNumero", query = "SELECT e FROM EnderecoPessoa e WHERE e.numero = :numero")})
 public class EnderecoPessoa implements Serializable {
 
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Pessoa idPessoa;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -237,6 +241,14 @@ public class EnderecoPessoa implements Serializable {
     @Override
     public String toString() {
         return "br.edu.uerr.appcpc.modelo.EnderecoPessoa[ id=" + id + " ]";
+    }
+
+    public Pessoa getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(Pessoa idPessoa) {
+        this.idPessoa = idPessoa;
     }
     
 }

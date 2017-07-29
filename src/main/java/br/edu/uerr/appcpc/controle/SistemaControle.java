@@ -24,7 +24,7 @@ public class SistemaControle extends AbstractControle implements Serializable {
 
     public List<String> getTipoEscolaridade() {
         try {
-            String sql = "select distinct escolaridade from pessoa order by 1";
+            String sql = "select distinct escolaridade as id, escolaridade from pessoa order by 1";
             List<String>   listaEscolaridade = entityManager.createNativeQuery(sql).getResultList();
 
             return listaEscolaridade;
