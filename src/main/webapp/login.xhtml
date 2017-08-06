@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Login Form</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Área de Acompanhamento!</title>
+        <link type="text/css" rel="stylesheet" href="dot-luv/skin.css"/>
     </h:head>
-    <h:body style="background-color: yellow;">
-        <h3>Welcome to the Login Page</h3>
-        <p><h:link outcome="/index" value="To Home Page" /></p>
-        <form method="post" action="j_security_check">
-            <h:panelGrid columns="2">
-                <h:outputLabel value="User Name"/>
-                <input type="text" name="j_username" />
-                <h:outputLabel value="Password"/>
-                <input type="password" name="j_password" />
-                <input type="submit" value="Login" />
-            </h:panelGrid>
-        </form> 
-
+    <h:body style="background-image:url('http://pwes.rocklin.k12.ca.us/j0439526.jpg');background-position: 50% 0%;background-repeat: no-repeat">
+        <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
+            <center>
+                <h:outputText value="Usuário ou senha incorretos!"  style="color: darkred"/>
+            </center>
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="j_username" value="Usuário: *" /> 
+                    <p:inputMask id="j_username" mask="999.999.999-99" required="true" value="#{loginVisao.usuario}" placeholder="CPF" />
+                    <h:outputLabel for="j_password" value="Senha: * " />
+                    <h:inputSecret id="j_password" required="true" value="#{loginVisao.senha}"/>
+                    <h:commandButton value="Logar" action="#{loginVisao.testaLogin()}" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>

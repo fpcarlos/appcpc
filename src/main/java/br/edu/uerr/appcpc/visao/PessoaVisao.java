@@ -7,14 +7,12 @@ package br.edu.uerr.appcpc.visao;
 
 import br.edu.uerr.appcpc.controle.EnderecoPessoaControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
-import br.edu.uerr.appcpc.modelo.EnderecoPessoa;
 import br.edu.uerr.appcpc.modelo.Pessoa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -45,13 +43,14 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public String abrirCadastro() {
         try {
             pessoa = new Pessoa();
-            
+            String aux = "382.998.282-87";
+            pessoa=pessoaControle.pegaPessoaPeloCpf(aux);
             //Random random = new Random();
             //int x = random.nextInt(100000);
-            pessoa = pessoaControle.pegaPessoaId(94797);
+            //pessoa = pessoaControle.pegaPessoaId(94797);
             //listPessoa = new ArrayList<>();
 
-            System.out.println(pessoa.getNome());
+            System.out.println("Pessoa: "+pessoa.getNome() + " " +pessoa.getCep());
             //listEnderecoPessoa = new ArrayList<>();            
 
             //listPessoa = pessoaControle.findAll();

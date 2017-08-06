@@ -103,5 +103,25 @@ public class PessoaControle extends AbstractControle implements Serializable {
         }
 
     }
+    
+    public Pessoa pegaCandidatoPeloCpfSenha(String cpf, String senha) throws Exception {
+        try {
+            String sql = "select * from pessoa where cpf='" + cpf + "' and senha=md5('" + senha + "') ";
+            System.out.println(sql);
+            Query query = entityManager.createNativeQuery(sql, Pessoa.class);
+            query.setParameter("cpf", cpf);
+            query.setParameter("senha", senha);
+            Object result = query.getSingleResult();
+            if (result == null) {
+                return null;
+            }
+            return (Pessoa) result;
+            //return (Candidato) query.getSingleResult();
+        } catch (RuntimeException re) {
+            throw new Exception(" Erro Candidato não Localizado: " + re.getMessage());
+        } catch (Exception e) {
+            throw new Exception(" Erro" + e.getMessage());
+        }
+    }
 
 }
