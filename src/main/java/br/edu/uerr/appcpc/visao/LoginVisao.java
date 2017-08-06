@@ -27,7 +27,7 @@ public class LoginVisao extends AbstractVisao implements Serializable {
     @EJB
     private PessoaControle pessoaControle;
 
-    private Pessoa pessoa;
+    private Pessoa pessoa = new Pessoa();
 
     private String usuario = "";
     private String senha = "";
@@ -58,6 +58,7 @@ public class LoginVisao extends AbstractVisao implements Serializable {
             if (pessoa != null) {
                 HttpSession session = UtilSession.getSession();
                 session.setAttribute("username", usuario);
+                session.setAttribute("userid", pessoa.getId());
                 return redirect("/sistema/index.xhtml");
             }
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -74,16 +75,21 @@ public class LoginVisao extends AbstractVisao implements Serializable {
     public String abrirPerfil() {
         try {
             pessoa = new Pessoa();
+            //pessoa = pessoaControle.pegaPessoaId(976);
             HttpSession session = UtilSession.getSession();
-            String aux = "382.998.282-87";//session.getAttribute("username").toString();
-            pessoa=pessoaControle.pegaPessoaPeloCpf(aux);
+            Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
+            
+            pessoa=pessoaControle.pegaPessoaId(aux);
+            
             
             
             if(pessoa == null){
-                
+                showFacesMessage("Candidato não localizado!!!", 4);
                 return null;
             }
-            System.out.println(session.getAttribute("username"));
+
+            System.out.println(aux);
+            //System.out.println(session.getAttribute("username"));
 
             return redirect("/sistema/usuario/formCandidato.xhtml");
         } catch (Exception e) {

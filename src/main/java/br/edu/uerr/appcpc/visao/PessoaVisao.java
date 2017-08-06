@@ -8,12 +8,14 @@ package br.edu.uerr.appcpc.visao;
 import br.edu.uerr.appcpc.controle.EnderecoPessoaControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
 import br.edu.uerr.appcpc.modelo.Pessoa;
+import br.edu.uerr.appcpc.util.UtilSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,10 +33,14 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
 
     private Pessoa pessoa;
 
-
     private List<Pessoa> listPessoa = new ArrayList<>();
 
     private String confirmaSenha;
+    
+    private String senhaAtual;
+    private String senhaNova1;
+    private String senhaNova2;
+    
 
     public PessoaVisao() {
         super();
@@ -43,14 +49,15 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public String abrirCadastro() {
         try {
             pessoa = new Pessoa();
-            String aux = "382.998.282-87";
-            pessoa=pessoaControle.pegaPessoaPeloCpf(aux);
+            HttpSession session = UtilSession.getSession();
+            Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
+            pessoa = pessoaControle.pegaPessoaId(aux);
             //Random random = new Random();
             //int x = random.nextInt(100000);
             //pessoa = pessoaControle.pegaPessoaId(94797);
             //listPessoa = new ArrayList<>();
 
-            System.out.println("Pessoa: "+pessoa.getNome() + " " +pessoa.getCep());
+            System.out.println("Pessoa: " + pessoa.getNome() + " " + pessoa.getCep());
             //listEnderecoPessoa = new ArrayList<>();            
 
             //listPessoa = pessoaControle.findAll();
@@ -69,6 +76,10 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
 
             showFacesMessage("salvo com sucesso!!!", 2);
             pessoa = new Pessoa();
+            HttpSession session = UtilSession.getSession();
+            Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
+            pessoa = pessoaControle.pegaPessoaId(aux);
+
             //pessoa = pessoaControle.pegaPessoaId(x);
             //listPessoa = new ArrayList<>();
             //listPessoa = pessoaControle.findAll();
@@ -127,9 +138,6 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
         this.listPessoa = listPessoa;
     }
 
-
-
-
     public String getConfirmaSenha() {
         return confirmaSenha;
     }
@@ -137,5 +145,31 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public void setConfirmaSenha(String confirmaSenha) {
         this.confirmaSenha = confirmaSenha;
     }
+
+    public String getSenhaAtual() {
+        return senhaAtual;
+    }
+
+    public void setSenhaAtual(String senhaAtual) {
+        this.senhaAtual = senhaAtual;
+    }
+
+    public String getSenhaNova1() {
+        return senhaNova1;
+    }
+
+    public void setSenhaNova1(String senhaNova1) {
+        this.senhaNova1 = senhaNova1;
+    }
+
+    public String getSenhaNova2() {
+        return senhaNova2;
+    }
+
+    public void setSenhaNova2(String senhaNova2) {
+        this.senhaNova2 = senhaNova2;
+    }
+    
+    
 
 }

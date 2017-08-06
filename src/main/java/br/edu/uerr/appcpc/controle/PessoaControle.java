@@ -62,7 +62,7 @@ public class PessoaControle extends AbstractControle implements Serializable {
 
     public Pessoa pegaPessoaPeloCpf(String cpf) throws Exception {
         try {
-            String sql = "select * from pessoa where cpf='" + cpf + "' ";
+            String sql = "select * from pessoa where cpf='" + cpf + "' limit 1";
             Query query = entityManager.createNativeQuery(sql, Pessoa.class);
             query.setParameter("cpf", cpf);
 
@@ -70,6 +70,7 @@ public class PessoaControle extends AbstractControle implements Serializable {
             if (result == null) {
                 return null;
             }
+            
             return (Pessoa) result;
         } catch (RuntimeException re) {
             throw new Exception(" Erro" + re.getMessage());
@@ -77,6 +78,8 @@ public class PessoaControle extends AbstractControle implements Serializable {
             throw new Exception(" Erro" + e.getMessage());
         }
     }
+    
+    
 
     public List<Pessoa> findAll() throws Exception {
         try {
