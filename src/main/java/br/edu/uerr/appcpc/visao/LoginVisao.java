@@ -51,11 +51,11 @@ public class LoginVisao extends AbstractVisao implements Serializable {
         System.out.println("Entrando com ologin");
 
         try {
-            
+
             pessoa = pessoaControle.pegaCandidatoPeloCpfSenha(usuario, senha);
             //System.out.println(usuario + " " + senha);
 
-            if (pessoa != null) {               
+            if (pessoa != null) {
                 HttpSession session = UtilSession.getSession();
                 session.setAttribute("username", usuario);
                 return redirect("/sistema/index.xhtml");
@@ -70,8 +70,27 @@ public class LoginVisao extends AbstractVisao implements Serializable {
             return null;
         }
     }
-    
-    
+
+    public String abrirPerfil() {
+        try {
+            pessoa = new Pessoa();
+            HttpSession session = UtilSession.getSession();
+            String aux = "382.998.282-87";//session.getAttribute("username").toString();
+            pessoa=pessoaControle.pegaPessoaPeloCpf(aux);
+            
+            
+            if(pessoa == null){
+                
+                return null;
+            }
+            System.out.println(session.getAttribute("username"));
+
+            return redirect("/sistema/usuario/formCandidato.xhtml");
+        } catch (Exception e) {
+            showFacesMessage(e.getMessage(), 4);
+            return null;
+        }
+    }
 
     public String logout() {
         HttpSession session = UtilSession.getSession();

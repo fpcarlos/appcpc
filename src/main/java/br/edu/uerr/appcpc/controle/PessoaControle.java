@@ -59,15 +59,19 @@ public class PessoaControle extends AbstractControle implements Serializable {
         }
 
     }
-    
-    public Pessoa pegaPessoaPeloCpf(String cpf) throws Exception{
+
+    public Pessoa pegaPessoaPeloCpf(String cpf) throws Exception {
         try {
-            String sql = "select * from pessoa where cpf='" + cpf + "'";
-            Query query = entityManager.createNativeQuery(sql,Pessoa.class);
+            String sql = "select * from pessoa where cpf='" + cpf + "' ";
+            Query query = entityManager.createNativeQuery(sql, Pessoa.class);
             query.setParameter("cpf", cpf);
-            
-            return (Pessoa) query.getSingleResult();
-         } catch (RuntimeException re) {
+
+            Object result = query.getSingleResult();
+            if (result == null) {
+                return null;
+            }
+            return (Pessoa) result;
+        } catch (RuntimeException re) {
             throw new Exception(" Erro" + re.getMessage());
         } catch (Exception e) {
             throw new Exception(" Erro" + e.getMessage());
@@ -103,7 +107,7 @@ public class PessoaControle extends AbstractControle implements Serializable {
         }
 
     }
-    
+
     public Pessoa pegaCandidatoPeloCpfSenha(String cpf, String senha) throws Exception {
         try {
             String sql = "select * from pessoa where cpf='" + cpf + "' and senha=md5('" + senha + "') ";
