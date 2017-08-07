@@ -11,7 +11,8 @@
     <h:body style="background-image:url('http://pwes.rocklin.k12.ca.us/j0439526.jpg');background-position: 50% 0%;background-repeat: no-repeat">
         <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
             <center>
-                <h:outputText value="Usuário ou senha incorretos!"  style="color: darkred"/>
+                <p:messages id="msgid"></p:messages>
+                
             </center>
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">

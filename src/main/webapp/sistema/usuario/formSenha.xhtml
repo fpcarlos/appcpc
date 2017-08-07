@@ -12,21 +12,29 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Salvar" update="frm"
-                                     actionListener="#{pessoaVisao.salvar()}" icon="ui-icon-disk" />
+                                     actionListener="#{pessoaVisao.salvarSenha}" icon="ui-icon-disk" />
                 </p:toolbarGroup>
 
-                <p:messages id="msgid"></p:messages>
+                
             </p:toolbar>
 
             <div class="ui-fluid">
                 <p:messages id="msgid"></p:messages>
-                        <p:panelGrid columns="2" layout="grid"
-                                     columnClasses="ui-grid-col-3, ui-grid-col-9"
-                                     styleClass="panelgrid-noborder">
-                            <p:outputLabel value="Senha Atual" for="senha1" />
-                            <p:inputText id="senha1" value="#{pessoaVisao.pessoa.nome}" required="true" 
-                                         requiredMessage="Senha atual é obrigatório" placeholder="Senha atual" />                                                        
-
+                <p:panelGrid columns="2" layout="grid"
+                             columnClasses="ui-grid-col-3, ui-grid-col-9"
+                             styleClass="panelgrid-noborder">
+                    <p:outputLabel value="Senha Atual" for="senhaAtual" />
+                    <p:password id="senhaAtual" value="#{pessoaVisao.senhaAtual}" required="true" 
+                                 requiredMessage="Senha atual é obrigatório" placeholder="Senha atual" />                                                        
+                    <p:outputLabel value="Senha Nova" for="senhaNova1" />
+                    <p:password id="senhaNova1" value="#{pessoaVisao.senhaNova1}" feedback="true" placeholder="Senha nova" weakLabel="Força da senha : Fraca" 
+goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte" match="senhaNova2" 
+validatorMessage="A Nova Senha e a confirmação devem ser iguais" required="true" requiredMessage="Nova Senha nova é obrigatório" />                                                        
+                    <p:outputLabel value="Confirmação de Senha" for="senhaNova2" />
+                    <p:password id="senhaNova2" value="#{pessoaVisao.senhaNova2}" required="true" 
+                                 requiredMessage="Confirmação de Senha nova é obrigatório" placeholder="Repita a Senha nova" />                                                        
+                </p:panelGrid>
             </div>
+        </h:form>
     </ui:define>
 </ui:composition>

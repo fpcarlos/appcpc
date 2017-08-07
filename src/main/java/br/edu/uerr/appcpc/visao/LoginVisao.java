@@ -61,13 +61,15 @@ public class LoginVisao extends AbstractVisao implements Serializable {
                 session.setAttribute("userid", pessoa.getId());
                 return redirect("/sistema/index.xhtml");
             }
+            showFacesMessage("Usuário ou Senha inválida", 4);
             FacesContext ctx = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário inválido", "Usuário inválido");
             ctx.addMessage(null, msg);
             //return "";  
             return redirect("/index.xhtml");
         } catch (Exception e) {
-            showFacesMessage(e.getMessage(), 4);
+            showFacesMessage("Usuário ou Senha inválida", 4);
+            //showFacesMessage(e.getMessage(), 4);
             return null;
         }
     }

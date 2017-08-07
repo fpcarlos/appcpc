@@ -36,11 +36,10 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     private List<Pessoa> listPessoa = new ArrayList<>();
 
     private String confirmaSenha;
-    
+
     private String senhaAtual;
     private String senhaNova1;
     private String senhaNova2;
-    
 
     public PessoaVisao() {
         super();
@@ -104,6 +103,16 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
         }
     }
 
+    public String abrirAlterarSenha() {
+        try {
+
+            return redirect("/sistema/usuario/formSenha.xhtml");
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public String remover(Pessoa aux) {
         try {
             //pessoaControle.remove(aux);
@@ -114,6 +123,39 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
             listPessoa = pessoaControle.findAll();
 
             return redirect("/sistema/usuario/formCandidato.xhtml");
+
+        } catch (Exception e) {
+            showFacesMessage(e.getMessage(), 4);
+            return null;
+        }
+    }
+
+    public String salvarSenha() {
+        try {
+
+            pessoa = new Pessoa();
+            HttpSession session = UtilSession.getSession();
+            Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
+            pessoa = pessoaControle.pegaPessoaId(aux);
+            this.senhaAtual = pessoa.getSenhaMD5(senhaAtual);
+            this.senhaNova1 = pessoa.getSenhaMD5(senhaNova1);
+
+            //this.senhaAtual = md.digest().toString();
+            System.out.println("Atual" + this.senhaAtual + "Atal banco" + pessoa.getSenha());
+            if (pessoa.getSenha().equals(this.senhaAtual)) {
+                //this.senhaNova1 = pessoa.getSenhaMD5(senhaNova1);
+                pessoa.setSenha(senhaNova1);
+                pessoaControle.salvar(pessoa);
+                showFacesMessage("Senha atualiza com suecesso", 2);
+                //HttpSession session = UtilSession.getSession();
+                //session.invalidate();
+                return redirect("/index.xhtml");
+
+            } else {
+                showFacesMessage("Senha Atual não confere", 4);
+            }
+
+            return null;
 
         } catch (Exception e) {
             showFacesMessage(e.getMessage(), 4);
@@ -169,7 +211,5 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
     public void setSenhaNova2(String senhaNova2) {
         this.senhaNova2 = senhaNova2;
     }
-    
-    
 
 }

@@ -6,6 +6,8 @@
 package br.edu.uerr.appcpc.modelo;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.Dependent;
@@ -167,6 +169,17 @@ public class Pessoa implements Serializable {
         this.id = id;
         this.dataHotaAlteracao = dataHotaAlteracao;
         this.dataHoraCadastro = dataHoraCadastro;
+    }
+
+    public String getSenhaMD5(String aux) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        //md.update(senhaAtual.getBytes());
+        byte[] result = md.digest(aux.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 
     public Integer getId() {
@@ -431,6 +444,4 @@ public class Pessoa implements Serializable {
         this.enderecoPessoaList = enderecoPessoaList;
     }
 
-    
-    
 }
