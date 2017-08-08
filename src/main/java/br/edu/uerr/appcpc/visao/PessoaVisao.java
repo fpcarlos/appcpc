@@ -7,6 +7,7 @@ package br.edu.uerr.appcpc.visao;
 
 import br.edu.uerr.appcpc.controle.EnderecoPessoaControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
+import br.edu.uerr.appcpc.modelo.Certame;
 import br.edu.uerr.appcpc.modelo.Pessoa;
 import br.edu.uerr.appcpc.util.UtilSession;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -147,6 +149,7 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
                 pessoa.setSenha(senhaNova1);
                 pessoaControle.salvar(pessoa);
                 showFacesMessage("Senha atualiza com suecesso", 2);
+
                 //HttpSession session = UtilSession.getSession();
                 //session.invalidate();
                 return redirect("/index.xhtml");
@@ -163,6 +166,7 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
         }
     }
 
+    
     //Gets e Sets
     public Pessoa getPessoa() {
         return pessoa;

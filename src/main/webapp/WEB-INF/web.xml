@@ -22,14 +22,16 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <!--
     <filter>
-        <filter-name>SoutPrinter</filter-name>
+        <filter-name>RedirectFilter</filter-name>
         <filter-class>br.edu.uerr.appcpc.util.RedirectFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>SoutPrinter</filter-name>
-        <url-pattern>/login.xhtml</url-pattern>
+        <filter-name>RedirectFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
+    -->
     <!--
     <security-role>
         <description>todos los usuarios con el papel de Admin</description>

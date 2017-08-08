@@ -80,12 +80,10 @@ public class LoginVisao extends AbstractVisao implements Serializable {
             //pessoa = pessoaControle.pegaPessoaId(976);
             HttpSession session = UtilSession.getSession();
             Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
-            
-            pessoa=pessoaControle.pegaPessoaId(aux);
-            
-            
-            
-            if(pessoa == null){
+
+            pessoa = pessoaControle.pegaPessoaId(aux);
+
+            if (pessoa == null) {
                 showFacesMessage("Candidato não localizado!!!", 4);
                 return null;
             }
@@ -100,6 +98,7 @@ public class LoginVisao extends AbstractVisao implements Serializable {
         }
     }
 
+    
     public String logout() {
         HttpSession session = UtilSession.getSession();
         session.invalidate();

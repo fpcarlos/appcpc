@@ -89,4 +89,20 @@ public class CertameControle extends AbstractControle implements Serializable{
 
     }
 
+    
+    public List<Certame> findAllAbertos() throws Exception {
+        try {
+            List<Certame> listaCertame = new ArrayList<>();
+            String sql = "select * from certame where data_fim_inscricao>=current_date order by 1 desc";
+            listaCertame = executaSqlNativo(sql, Certame.class, entityManager);
+            return listaCertame;
+
+        } catch (RuntimeException re) {
+            throw new Exception(" Erro" + re.getMessage());
+        } catch (Exception e) {
+            throw new Exception(" Erro" + e.getMessage());
+        }
+
+    }
+    
 }

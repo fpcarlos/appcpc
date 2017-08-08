@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/tp_inscricao.xhtml">
+
+    <ui:define name="content">
+        <div>
+            <h3 class="aw-page-title">#{certameVisao.certame.titulo}</h3>
+        </div>
+        <div>
+            Informações do Concurso
+        </div>        
+        <p:messages id="msgid"></p:messages>
+        <h:form id="frmInscricao">            
+            <p:tabView style="margin-top: 20px">
+                <p:tab title="Dados pessoais">
+
+                    <p:panelGrid columns="4" layout="grid"
+                                 columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+                                 styleClass="panelgrid-noborder">
+
+                        <p:outputLabel value="Nome" for="nome" />
+                        <p:outputLabel id="nome" value="#{certameVisao.pessoa.nome}"  />                                                        
+                        <p:outputLabel value="Nome Social" for="nomeSocial" />
+                        <p:outputLabel id="nomeSocial" value="#{certameVisao.pessoa.nomeSocial}"/>
+
+                        <p:outputLabel value="Data de Nascimento" for="dataNascimento"/>
+                        <p:outputLabel id="dataNascimento" value="#{certameVisao.pessoa.dataNascimento}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:outputLabel>
+                        <p:outputLabel value="E-Mail" for="email"/>
+                        <p:outputLabel id="email" value="#{certameVisao.pessoa.email}"/>
+
+                        <p:outputLabel value="CPF" for="cpf" />
+                        <p:outputLabel id="cpf" value="#{certameVisao.pessoa.cpf}"/>
+
+                        <p:outputLabel value="RG" for="rg" />
+                        <p:outputLabel id="rg" value="#{certameVisao.pessoa.rg}"/>
+
+                        <p:outputLabel value="Telefone" for="telefone" />
+                        <p:outputLabel id="telefone" value="#{certameVisao.pessoa.telefone}"/>
+
+                        <p:outputLabel value="Celular" for="celular" />
+                        <p:outputLabel id="celular" value="#{certameVisao.pessoa.celular}" />
+
+                        <p:outputLabel value="CEP" for="cep" />
+                        <p:outputLabel id="cep" value="#{certameVisao.pessoa.cep}"/>
+
+                        <p:outputLabel value="Logradouro" for="logradouro" />
+                        <p:outputLabel id="logradouro" value="#{certameVisao.pessoa.logradouro}" />
+
+                        <p:outputLabel value="Número" for="numero" />
+                        <p:outputLabel id="numero" value="#{certameVisao.pessoa.numero}"/>
+
+                        <p:outputLabel value="Bairro" for="bairro" />
+                        <p:outputLabel id="bairro" value="#{certameVisao.pessoa.bairro}"/>
+
+                        <p:outputLabel value="Cidade" for="cidade" />
+                        <p:outputLabel id="cidade" value="#{certameVisao.pessoa.cidade}"/>
+
+                        <p:outputLabel value="UF" for="uf" />
+                        <p:outputLabel id="uf" value="#{certameVisao.pessoa.uf}"/>
+                        <p:outputLabel/>
+
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="Ficha de Inscrição">                    
+                    <p:panelGrid columns="2" layout="grid"
+                                 columnClasses="ui-grid-col-4, ui-grid-col-8"
+                                 styleClass="panelgrid-noborder">
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:selectOneMenu id="idCargo" value="#{certameVisao.inscricao.idCargo}" converter="converterPadrao" style="width: 200%">
+                                    <f:selectItem itemLabel="Selecione o Cargo" itemValue=""/>
+                                    <f:selectItems value="#{certameVisao.certame.cargoList}"
+                                                   var="varC"
+                                                   itemLabel="#{varC.nome}"
+                                                   itemValue="#{varC}"
+                                                   />                            
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+</ui:composition>

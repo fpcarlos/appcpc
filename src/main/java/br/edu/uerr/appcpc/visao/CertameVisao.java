@@ -6,13 +6,19 @@
 package br.edu.uerr.appcpc.visao;
 
 import br.edu.uerr.appcpc.controle.CertameControle;
+import br.edu.uerr.appcpc.controle.PessoaControle;
 import br.edu.uerr.appcpc.modelo.Certame;
+import br.edu.uerr.appcpc.modelo.Inscricao;
+import br.edu.uerr.appcpc.modelo.Pessoa;
+import br.edu.uerr.appcpc.util.UtilSession;
+import static br.edu.uerr.appcpc.visao.AbstractVisao.showFacesMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,10 +29,18 @@ import javax.inject.Named;
 public class CertameVisao extends AbstractVisao implements Serializable{
     @EJB
     private CertameControle certameControle;
+    @EJB
+    private PessoaControle pessoaControle;
     
     private Certame certame;
     
+    private Pessoa pessoa;
+    
+    private Inscricao inscricao;
+    
     private List<Certame> listCertame = new ArrayList<>();
+    
+    //private List<Cargo> cargoList = new ArrayList<>();
     
     public CertameVisao(){
         super();
@@ -68,9 +82,46 @@ public class CertameVisao extends AbstractVisao implements Serializable{
         }
     }
     
-    
-    
-    
+        public String listarCertamesAbertos(){
+        try {
+            listCertame = new ArrayList<>();
+            listCertame = certameControle.findAllAbertos();
+            return redirect("/sistema/usuario/formListaCertamesAbertos.xhtml");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String iniciarInscricaoCertames(Certame entity) {
+        try {
+            pessoa = new Pessoa();
+            HttpSession session = UtilSession.getSession();
+            Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
+
+            pessoa = pessoaControle.pegaPessoaId(aux);
+            certame = new Certame();
+            certame = certameControle.pegaCertameId(entity.getId());
+            inscricao = new Inscricao();
+            inscricao.setIdCertame(certame);
+            inscricao.setIdPessoa(pessoa);
+            
+
+            System.out.println(entity.getTitulo());
+            System.out.println(pessoa.getNome());
+            
+
+            if (pessoa == null) {
+                showFacesMessage("Candidato não localizado!!!", 4);
+                return null;
+            }
+
+            return redirect("/sistema/usuario/formInscricao.xhtml");
+        } catch (Exception e) {
+            //showFacesMessage(e.getMessage(), 4);
+            return null;
+        }
+    }
+
     
     public Certame getCertame() {
         return certame;
@@ -86,6 +137,22 @@ public class CertameVisao extends AbstractVisao implements Serializable{
 
     public void setListCertame(List<Certame> listCertame) {
         this.listCertame = listCertame;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Inscricao getInscricao() {
+        return inscricao;
+    }
+
+    public void setInscricao(Inscricao inscricao) {
+        this.inscricao = inscricao;
     }
     
     

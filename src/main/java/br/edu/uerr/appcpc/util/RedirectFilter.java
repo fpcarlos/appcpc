@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author fpcarlos
  */
+
 public class RedirectFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
