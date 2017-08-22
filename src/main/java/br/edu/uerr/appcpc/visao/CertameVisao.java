@@ -13,7 +13,10 @@ import br.edu.uerr.appcpc.modelo.Pessoa;
 import br.edu.uerr.appcpc.util.UtilSession;
 import static br.edu.uerr.appcpc.visao.AbstractVisao.showFacesMessage;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -39,6 +42,10 @@ public class CertameVisao extends AbstractVisao implements Serializable{
     private Inscricao inscricao;
     
     private List<Certame> listCertame = new ArrayList<>();
+    
+    private String dataAtual= "";
+    
+    private boolean dtIsento = false;
     
     //private List<Cargo> cargoList = new ArrayList<>();
     
@@ -104,7 +111,15 @@ public class CertameVisao extends AbstractVisao implements Serializable{
             inscricao = new Inscricao();
             inscricao.setIdCertame(certame);
             inscricao.setIdPessoa(pessoa);
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+            Date dtAtual = new Date();
+            formatador.format(dtAtual);
             
+            
+         
+            
+            System.out.println(dtAtual);
+            System.out.println(certame.getDataFimIsencao());
 
             System.out.println(entity.getTitulo());
             System.out.println(pessoa.getNome());
@@ -153,6 +168,24 @@ public class CertameVisao extends AbstractVisao implements Serializable{
 
     public void setInscricao(Inscricao inscricao) {
         this.inscricao = inscricao;
+    }
+
+    public String getDataAtual() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(dataAtual);
+        //return dataAtual;
+    }
+
+    public void setDataAtual(String dataAtual) {
+        this.dataAtual = dataAtual;
+    }
+
+    public boolean isDtIsento() {
+        return dtIsento;
+    }
+
+    public void setDtIsento(boolean dtIsento) {
+        this.dtIsento = dtIsento;
     }
     
     

@@ -52,8 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pessoa.findByEmail", query = "SELECT p FROM Pessoa p WHERE p.email = :email")
     , @NamedQuery(name = "Pessoa.findByCelular", query = "SELECT p FROM Pessoa p WHERE p.celular = :celular")
     , @NamedQuery(name = "Pessoa.findByTelefone", query = "SELECT p FROM Pessoa p WHERE p.telefone = :telefone")
-    , @NamedQuery(name = "Pessoa.findBySenha", query = "SELECT p FROM Pessoa p WHERE p.senha = :senha")
-    , @NamedQuery(name = "Pessoa.findBySenha2", query = "SELECT p FROM Pessoa p WHERE p.senha2 = :senha2")
+    , @NamedQuery(name = "Pessoa.findBySenha", query = "SELECT p FROM Pessoa p WHERE p.senha = :senha")    
     , @NamedQuery(name = "Pessoa.findByCep", query = "SELECT p FROM Pessoa p WHERE p.cep = :cep")
     , @NamedQuery(name = "Pessoa.findByLogradouro", query = "SELECT p FROM Pessoa p WHERE p.logradouro = :logradouro")
     , @NamedQuery(name = "Pessoa.findByComplemento", query = "SELECT p FROM Pessoa p WHERE p.complemento = :complemento")
@@ -118,10 +117,7 @@ public class Pessoa implements Serializable {
     @Size(max = 100)
     @Column(name = "escolaridade")
     private String escolaridade;
-    @Size(max = 250)
-    @Column(name = "senha2")
-    private String senha2;
-
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "data_hora_cadastro")
@@ -369,14 +365,6 @@ public class Pessoa implements Serializable {
 
     public void setEscolaridade(String escolaridade) {
         this.escolaridade = escolaridade;
-    }
-
-    public String getSenha2() {
-        return senha2;
-    }
-
-    public void setSenha2(String senha2) {
-        this.senha2 = senha2;
     }
 
     public String getCep() {

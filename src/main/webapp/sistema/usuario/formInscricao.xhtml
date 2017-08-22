@@ -10,7 +10,12 @@
             <h3 class="aw-page-title">#{certameVisao.certame.titulo}</h3>
         </div>
         <div>
-            Informações do Concurso
+            <div>
+                <p>
+                    Informações do Concurso. Para prosseguir, por favor confirme as informações abaixo.</p>
+                <p><b>Ao concluír sua inscrição você estará concordando com todos os termos do edital.</b></p>
+                <p>Por favor, tenha cuidado ao escolher o cargo. Lembre-se de ler o Edital do concurso com atenção antes de fazer a sua inscrição. </p>
+            </div>
         </div>        
         <p:messages id="msgid"></p:messages>
         <h:form id="frmInscricao">            
@@ -67,20 +72,34 @@
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Ficha de Inscrição">                    
-                    <p:panelGrid columns="2" layout="grid"
+                    <p:panelGrid columns="1" layout="grid"
                                  columnClasses="ui-grid-col-4, ui-grid-col-8"
-                                 styleClass="panelgrid-noborder">
+                                 styleClass="panelgrid-noborder">                        
                         <p:row>
-                            <p:column colspan="2">
-                                <p:selectOneMenu id="idCargo" value="#{certameVisao.inscricao.idCargo}" converter="converterPadrao" style="width: 200%">
-                                    <f:selectItem itemLabel="Selecione o Cargo" itemValue=""/>
-                                    <f:selectItems value="#{certameVisao.certame.cargoList}"
-                                                   var="varC"
-                                                   itemLabel="#{varC.nome}"
-                                                   itemValue="#{varC}"
-                                                   />                            
-                                </p:selectOneMenu>
-                            </p:column>
+
+                            <p:outputLabel value="Curso/Cargo" for="idCargo" />
+
+                            <!--<p:column colspan="2">-->
+                            <p:selectOneMenu id="idCargo" value="#{certameVisao.inscricao.idCargo}" converter="converterPadrao" style="width: 200%">
+                                <f:selectItem itemLabel="Selecione o Cargo" itemValue=""/>
+                                <f:selectItems value="#{certameVisao.certame.cargoList}"
+                                               var="varC"
+                                               itemLabel="#{varC.nome}"
+                                               itemValue="#{varC}"
+                                               />                            
+                            </p:selectOneMenu>
+                            <!--</p:column>-->
+                            <p:outputPanel>
+                                <h:panelGroup rendered="#{certameVisao.dtIsento}">
+                                    <p:outputLabel value="Pedido de isenção de taxa" for="idIsencao" />
+                                    <p:selectOneMenu id="idIsencao" required="true" requiredMessage="Sexo não selecionado!" placeholder="Selecione"
+                                                     >
+                                        <f:selectItem itemLabel="Não" itemValue="0"/>
+                                        <f:selectItem itemLabel="Sim" itemValue="1" />                                
+                                    </p:selectOneMenu>  
+                                </h:panelGroup>
+                            </p:outputPanel>
+
                         </p:row>
                     </p:panelGrid>
                 </p:tab>

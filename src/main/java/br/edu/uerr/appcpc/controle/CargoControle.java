@@ -77,7 +77,7 @@ public class CargoControle extends AbstractControle implements Serializable {
     public List<Cargo> findAll() throws Exception {
         try {
             List<Cargo> listaCargo = new ArrayList<>();
-            String sql = "select * from cargo";
+            String sql = "select * from cargo order by 1";
             listaCargo = executaSqlNativo(sql, Cargo.class, entityManager);
             return listaCargo;
 
