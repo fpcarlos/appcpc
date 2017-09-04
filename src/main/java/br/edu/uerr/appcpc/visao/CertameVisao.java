@@ -29,67 +29,66 @@ import javax.servlet.http.HttpSession;
  */
 @Named
 @SessionScoped
-public class CertameVisao extends AbstractVisao implements Serializable{
+public class CertameVisao extends AbstractVisao implements Serializable {
+
     @EJB
     private CertameControle certameControle;
     @EJB
     private PessoaControle pessoaControle;
-    
+
     private Certame certame;
-    
+
     private Pessoa pessoa;
-    
+
     private Inscricao inscricao;
-    
+
     private List<Certame> listCertame = new ArrayList<>();
-    
-    private String dataAtual= "";
-    
+
+    private String dataAtual = "";
+
     private boolean dtIsento = false;
-    
+
     //private List<Cargo> cargoList = new ArrayList<>();
-    
-    public CertameVisao(){
+    public CertameVisao() {
         super();
     }
 
-    
-    public String abrirCadastro(){
+    public String abrirCadastro() {
         try {
-           certame = new Certame(); 
-           listCertame = new ArrayList<>();
-           listCertame=certameControle.findAll();
-            
-        return redirect("/admin/certame/formCertame.xhtml");
+            certame = new Certame();
+            listCertame = new ArrayList<>();
+            listCertame = certameControle.findAll();
+
+            return redirect("/admin/certame/formCertame.xhtml");
         } catch (Exception e) {
             return null;
         }
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         try {
             certameControle.salvar(certame);
             showFacesMessage("salvo com sucesso!!!", 2);
-            certame=new Certame();
+            certame = new Certame();
             listCertame = new ArrayList<>();
-            listCertame=certameControle.findAll();
-           
+            listCertame = certameControle.findAll();
+
         } catch (Exception e) {
             showFacesMessage(e.getMessage(), 4);
         }
     }
-    
-    public String editar(Certame aux){
+
+    public String editar(Certame aux) {
         try {
-            certame=certameControle.pegaCertameId(aux.getId());
-            
-        return redirect("/admin/certame/formCertame.xhtml");
+            certame = certameControle.pegaCertameId(aux.getId());
+
+            return redirect("/admin/certame/formCertame.xhtml");
         } catch (Exception e) {
             return null;
         }
     }
-    
-        public String listarCertamesAbertos(){
+
+    public String listarCertamesAbertos() {
         try {
             listCertame = new ArrayList<>();
             listCertame = certameControle.findAllAbertos();
@@ -101,10 +100,11 @@ public class CertameVisao extends AbstractVisao implements Serializable{
 
     public String iniciarInscricaoCertames(Certame entity) {
         try {
+            System.out.println("teste");
             pessoa = new Pessoa();
             HttpSession session = UtilSession.getSession();
             Integer aux = Integer.parseInt(session.getAttribute("userid").toString());
-
+            
             pessoa = pessoaControle.pegaPessoaId(aux);
             certame = new Certame();
             certame = certameControle.pegaCertameId(entity.getId());
@@ -114,30 +114,31 @@ public class CertameVisao extends AbstractVisao implements Serializable{
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
             Date dtAtual = new Date();
             formatador.format(dtAtual);
-            
-            
-         
-            
-            System.out.println(dtAtual);
+            //Date data1 = formatador.parse(dataAtual);
+            //Date data2 = formatador.parse(certame.getDataFimIsencao().toString());
+            //if (data1.compareTo(data2) > 0) {
+             //   this.dtIsento = false;
+           // }
+
+            //System.out.println(dtAtual);
             System.out.println(certame.getDataFimIsencao());
 
             System.out.println(entity.getTitulo());
             System.out.println(pessoa.getNome());
-            
 
             if (pessoa == null) {
+                System.out.println("Candidato Não Localizado");
                 showFacesMessage("Candidato não localizado!!!", 4);
                 return null;
             }
-
+            
             return redirect("/sistema/usuario/formInscricao.xhtml");
         } catch (Exception e) {
-            //showFacesMessage(e.getMessage(), 4);
+            showFacesMessage(e.getMessage(), 4);
             return null;
         }
     }
 
-    
     public Certame getCertame() {
         return certame;
     }
@@ -187,11 +188,5 @@ public class CertameVisao extends AbstractVisao implements Serializable{
     public void setDtIsento(boolean dtIsento) {
         this.dtIsento = dtIsento;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }
