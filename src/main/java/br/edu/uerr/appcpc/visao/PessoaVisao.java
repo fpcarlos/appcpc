@@ -7,17 +7,20 @@ package br.edu.uerr.appcpc.visao;
 
 import br.edu.uerr.appcpc.controle.EnderecoPessoaControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
-import br.edu.uerr.appcpc.modelo.Certame;
+import br.edu.uerr.appcpc.modelo.Cep;
 import br.edu.uerr.appcpc.modelo.Pessoa;
 import br.edu.uerr.appcpc.util.UtilSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -32,6 +35,8 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
 
     @EJB
     private EnderecoPessoaControle enderecoPessoaControle;
+    
+    private Cep cep;
 
     private Pessoa pessoa;
 
@@ -69,6 +74,24 @@ public class PessoaVisao extends AbstractVisao implements Serializable {
         }
     }
 
+    public void pegaCEP(){
+        String vcep = pessoa.getCep();
+        String json = Cep.buscarCep(vcep);
+        Map<String,String> mapa = new HashMap<>();
+
+        Matcher matcher = Pattern.compile("\"\\D.*?\": \".*?\"").matcher(json);
+        while (matcher.find()) {
+            String[] group = matcher.group().split(":");
+            mapa.put(group[0].replaceAll("\"", "").trim(), group[1].replaceAll("\"", "").trim());
+        }
+        pessoa.setCep(mapa.get("cep"));
+        pessoa.setLogradouro(mapa.get("logradouro"));
+        //pessoa.setNumero("253");
+        pessoa.setBairro(mapa.get("bairro"));
+        pessoa.setCidade(mapa.get("localidade"));
+        pessoa.setUf(mapa.get("uf"));
+    }
+    
     public void salvar() {
         try {
             System.out.println(pessoa.getNomeSocial());

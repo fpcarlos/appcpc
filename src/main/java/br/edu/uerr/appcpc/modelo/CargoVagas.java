@@ -8,7 +8,6 @@ package br.edu.uerr.appcpc.modelo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,21 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author fpcarlos
  */
-@Dependent
 @Entity
-@Table(name = "cargo")
+@Table(name = "cargo_vagas")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c")
-    , @NamedQuery(name = "Cargo.findById", query = "SELECT c FROM Cargo c WHERE c.id = :id")
-    , @NamedQuery(name = "Cargo.findByNome", query = "SELECT c FROM Cargo c WHERE c.nome = :nome")
-    , @NamedQuery(name = "Cargo.findByNomeCurto", query = "SELECT c FROM Cargo c WHERE c.nomeCurto = :nomeCurto")
-    , @NamedQuery(name = "Cargo.findByQtdVaga", query = "SELECT c FROM Cargo c WHERE c.qtdVaga = :qtdVaga")    
-    , @NamedQuery(name = "Cargo.findByStatus", query = "SELECT c FROM Cargo c WHERE c.status = :status")})
-public class Cargo implements Serializable {
-
-    @OneToMany(mappedBy = "idCargo")
-    private List<CargoVagas> cargoVagasList;
+    @NamedQuery(name = "CargoVagas.findAll", query = "SELECT c FROM CargoVagas c")
+    , @NamedQuery(name = "CargoVagas.findById", query = "SELECT c FROM CargoVagas c WHERE c.id = :id")
+    , @NamedQuery(name = "CargoVagas.findByQtdVaga", query = "SELECT c FROM CargoVagas c WHERE c.qtdVaga = :qtdVaga")
+    , @NamedQuery(name = "CargoVagas.findByValorVaga", query = "SELECT c FROM CargoVagas c WHERE c.valorVaga = :valorVaga")
+    , @NamedQuery(name = "CargoVagas.findByStatus", query = "SELECT c FROM CargoVagas c WHERE c.status = :status")})
+public class CargoVagas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,40 +44,27 @@ public class Cargo implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 2147483647)
-    @Column(name = "nome")
-    private String nome;
-    @Size(max = 200)
-    @Column(name = "nome_curto")
-    private String nomeCurto;
     @Column(name = "qtd_vaga")
     private Integer qtdVaga;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor_vaga")
     private BigDecimal valorVaga;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "status")
-    private int status;
-    @OneToMany(mappedBy = "idCargo")
+    private Integer status;
+    @OneToMany(mappedBy = "idCargoVagas")
     private List<Inscricao> inscricaoList;
-    @JoinColumn(name = "id_certame", referencedColumnName = "id")
+    @JoinColumn(name = "id_cargo", referencedColumnName = "id")
     @ManyToOne
-    private Certame idCertame;
+    private Cargo idCargo;
     @JoinColumn(name = "id_tipo_vaga", referencedColumnName = "id")
     @ManyToOne
     private TipoVaga idTipoVaga;
 
-    public Cargo() {
+    public CargoVagas() {
     }
 
-    public Cargo(Integer id) {
+    public CargoVagas(Integer id) {
         this.id = id;
-    }
-
-    public Cargo(Integer id, int status) {
-        this.id = id;
-        this.status = status;
     }
 
     public Integer getId() {
@@ -94,22 +73,6 @@ public class Cargo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNomeCurto() {
-        return nomeCurto;
-    }
-
-    public void setNomeCurto(String nomeCurto) {
-        this.nomeCurto = nomeCurto;
     }
 
     public Integer getQtdVaga() {
@@ -128,11 +91,11 @@ public class Cargo implements Serializable {
         this.valorVaga = valorVaga;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -145,12 +108,12 @@ public class Cargo implements Serializable {
         this.inscricaoList = inscricaoList;
     }
 
-    public Certame getIdCertame() {
-        return idCertame;
+    public Cargo getIdCargo() {
+        return idCargo;
     }
 
-    public void setIdCertame(Certame idCertame) {
-        this.idCertame = idCertame;
+    public void setIdCargo(Cargo idCargo) {
+        this.idCargo = idCargo;
     }
 
     public TipoVaga getIdTipoVaga() {
@@ -171,10 +134,10 @@ public class Cargo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cargo)) {
+        if (!(object instanceof CargoVagas)) {
             return false;
         }
-        Cargo other = (Cargo) object;
+        CargoVagas other = (CargoVagas) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -183,16 +146,7 @@ public class Cargo implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.uerr.appcpc.modelo.Cargo[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public List<CargoVagas> getCargoVagasList() {
-        return cargoVagasList;
-    }
-
-    public void setCargoVagasList(List<CargoVagas> cargoVagasList) {
-        this.cargoVagasList = cargoVagasList;
+        return "br.edu.uerr.appcpc.modelo.CargoVagas[ id=" + id + " ]";
     }
     
 }

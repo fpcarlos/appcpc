@@ -6,6 +6,7 @@
 package br.edu.uerr.appcpc.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,9 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +41,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "LocalProva.findByTelefone", query = "SELECT l FROM LocalProva l WHERE l.telefone = :telefone")
     , @NamedQuery(name = "LocalProva.findByEmail", query = "SELECT l FROM LocalProva l WHERE l.email = :email")})
 public class LocalProva implements Serializable {
+
+    @OneToMany(mappedBy = "idLocalProva")
+    private List<Inscricao> inscricaoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -160,6 +166,15 @@ public class LocalProva implements Serializable {
     @Override
     public String toString() {
         return "br.edu.uerr.appcpc.modelo.LocalProva[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Inscricao> getInscricaoList() {
+        return inscricaoList;
+    }
+
+    public void setInscricaoList(List<Inscricao> inscricaoList) {
+        this.inscricaoList = inscricaoList;
     }
     
 }

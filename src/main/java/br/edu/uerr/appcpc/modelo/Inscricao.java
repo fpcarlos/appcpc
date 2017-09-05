@@ -47,6 +47,17 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Inscricao.findByDataHoraAlteracao", query = "SELECT i FROM Inscricao i WHERE i.dataHoraAlteracao = :dataHoraAlteracao")})
 public class Inscricao implements Serializable {
 
+    @Column(name = "st_pagamento")
+    private Integer stPagamento;
+    @Column(name = "id_lingua_prova")
+    private Integer idLinguaProva;
+    @JoinColumn(name = "id_cargo_vagas", referencedColumnName = "id")
+    @ManyToOne
+    private CargoVagas idCargoVagas;
+    @JoinColumn(name = "id_local_prova", referencedColumnName = "id")
+    @ManyToOne
+    private LocalProva idLocalProva;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,8 +67,6 @@ public class Inscricao implements Serializable {
     @Size(max = 50)
     @Column(name = "numero_boleto")
     private String numeroBoleto;
-    @Column(name = "id_local_prova")
-    private Integer idLocalProva;
     @Column(name = "sala_prova")
     private Integer salaProva;
     @Basic(optional = false)
@@ -116,13 +125,6 @@ public class Inscricao implements Serializable {
         this.numeroBoleto = numeroBoleto;
     }
 
-    public Integer getIdLocalProva() {
-        return idLocalProva;
-    }
-
-    public void setIdLocalProva(Integer idLocalProva) {
-        this.idLocalProva = idLocalProva;
-    }
 
     public Integer getSalaProva() {
         return salaProva;
@@ -221,6 +223,38 @@ public class Inscricao implements Serializable {
     @Override
     public String toString() {
         return "br.edu.uerr.appcpc.modelo.Inscricao[ id=" + id + " ]";
+    }
+
+    public Integer getStPagamento() {
+        return stPagamento;
+    }
+
+    public void setStPagamento(Integer stPagamento) {
+        this.stPagamento = stPagamento;
+    }
+
+    public Integer getIdLinguaProva() {
+        return idLinguaProva;
+    }
+
+    public void setIdLinguaProva(Integer idLinguaProva) {
+        this.idLinguaProva = idLinguaProva;
+    }
+
+    public CargoVagas getIdCargoVagas() {
+        return idCargoVagas;
+    }
+
+    public void setIdCargoVagas(CargoVagas idCargoVagas) {
+        this.idCargoVagas = idCargoVagas;
+    }
+
+    public LocalProva getIdLocalProva() {
+        return idLocalProva;
+    }
+
+    public void setIdLocalProva(LocalProva idLocalProva) {
+        this.idLocalProva = idLocalProva;
     }
     
 }

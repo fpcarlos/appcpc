@@ -201,5 +201,6 @@ public class ArquivoCartaoResposta implements Serializable {
         return "br.edu.uerr.appcpc.modelo.ArquivoCartaoResposta[ id=" + id + " ]";
     }
 
+
     
 }

@@ -7,9 +7,11 @@ package br.edu.uerr.appcpc.visao;
 
 import br.edu.uerr.appcpc.controle.CertameControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
+import br.edu.uerr.appcpc.controle.TipoVagaControle;
 import br.edu.uerr.appcpc.modelo.Certame;
 import br.edu.uerr.appcpc.modelo.Inscricao;
 import br.edu.uerr.appcpc.modelo.Pessoa;
+import br.edu.uerr.appcpc.modelo.TipoVaga;
 import br.edu.uerr.appcpc.util.UtilSession;
 import static br.edu.uerr.appcpc.visao.AbstractVisao.showFacesMessage;
 import java.io.Serializable;
@@ -35,6 +37,8 @@ public class CertameVisao extends AbstractVisao implements Serializable {
     private CertameControle certameControle;
     @EJB
     private PessoaControle pessoaControle;
+    @EJB
+    private TipoVagaControle tipoVagaControle;
 
     private Certame certame;
 
@@ -43,6 +47,8 @@ public class CertameVisao extends AbstractVisao implements Serializable {
     private Inscricao inscricao;
 
     private List<Certame> listCertame = new ArrayList<>();
+    
+    private List<TipoVaga> listTipoVaga = new ArrayList<>();
 
     private String dataAtual = "";
 
@@ -189,4 +195,14 @@ public class CertameVisao extends AbstractVisao implements Serializable {
         this.dtIsento = dtIsento;
     }
 
+    public List<TipoVaga> getListTipoVaga() {
+        return listTipoVaga;
+    }
+
+    public void setListTipoVaga(List<TipoVaga> listTipoVaga) {
+        this.listTipoVaga = listTipoVaga;
+    }
+
+    
+    
 }

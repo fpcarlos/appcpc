@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TipoVaga.findByNome", query = "SELECT t FROM TipoVaga t WHERE t.nome = :nome")})
 public class TipoVaga implements Serializable {
 
+    @OneToMany(mappedBy = "idTipoVaga")
+    private List<CargoVagas> cargoVagasList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,6 +106,15 @@ public class TipoVaga implements Serializable {
     @Override
     public String toString() {
         return "br.edu.uerr.appcpc.modelo.TipoVaga[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<CargoVagas> getCargoVagasList() {
+        return cargoVagasList;
+    }
+
+    public void setCargoVagasList(List<CargoVagas> cargoVagasList) {
+        this.cargoVagasList = cargoVagasList;
     }
     
 }
