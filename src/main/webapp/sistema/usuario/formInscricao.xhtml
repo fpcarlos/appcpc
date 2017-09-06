@@ -86,9 +86,14 @@
                                                var="varC"
                                                itemLabel="#{varC.nome}"
                                                itemValue="#{varC}"
-                                               />                            
+                                               />             
+                                
+                                <p:ajax event="select" listener="#{certameVisao.getListaTipoVagas}" />
                             </p:selectOneMenu>
                             <!--</p:column>-->
+
+                            
+
                             <p:outputPanel>
                                 <h:panelGroup rendered="#{certameVisao.dtIsento}">
                                     <p:outputLabel value="Pedido de isenção de taxa" for="idIsencao" />

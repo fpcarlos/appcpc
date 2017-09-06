@@ -7,7 +7,6 @@ package br.edu.uerr.appcpc.modelo;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author fpcarlos
  */
-@Dependent
 @Entity
 @Table(name = "tipo_vaga")
 @XmlRootElement
@@ -35,9 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TipoVaga.findById", query = "SELECT t FROM TipoVaga t WHERE t.id = :id")
     , @NamedQuery(name = "TipoVaga.findByNome", query = "SELECT t FROM TipoVaga t WHERE t.nome = :nome")})
 public class TipoVaga implements Serializable {
-
-    @OneToMany(mappedBy = "idTipoVaga")
-    private List<CargoVagas> cargoVagasList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,7 +44,7 @@ public class TipoVaga implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(mappedBy = "idTipoVaga")
-    private List<Cargo> cargoList;
+    private List<CargoVagas> cargoVagasList;
 
     public TipoVaga() {
     }
@@ -75,12 +70,12 @@ public class TipoVaga implements Serializable {
     }
 
     @XmlTransient
-    public List<Cargo> getCargoList() {
-        return cargoList;
+    public List<CargoVagas> getCargoVagasList() {
+        return cargoVagasList;
     }
 
-    public void setCargoList(List<Cargo> cargoList) {
-        this.cargoList = cargoList;
+    public void setCargoVagasList(List<CargoVagas> cargoVagasList) {
+        this.cargoVagasList = cargoVagasList;
     }
 
     @Override
@@ -106,15 +101,6 @@ public class TipoVaga implements Serializable {
     @Override
     public String toString() {
         return "br.edu.uerr.appcpc.modelo.TipoVaga[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public List<CargoVagas> getCargoVagasList() {
-        return cargoVagasList;
-    }
-
-    public void setCargoVagasList(List<CargoVagas> cargoVagasList) {
-        this.cargoVagasList = cargoVagasList;
     }
     
 }

@@ -8,7 +8,6 @@ package br.edu.uerr.appcpc.modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author fpcarlos
  */
-@Dependent
 @Entity
 @Table(name = "certame")
 @XmlRootElement
@@ -99,10 +97,6 @@ public class Certame implements Serializable {
     private Date dataAlt;
     @Column(name = "status")
     private Integer status;
-    @OneToMany(mappedBy = "idCertame")
-    private List<Inscricao> inscricaoList;
-    @OneToMany(mappedBy = "idCertame")
-    private List<ArquivoCertame> arquivoCertameList;
     @OneToMany(mappedBy = "idCertame")
     private List<Cargo> cargoList;
 
@@ -229,24 +223,6 @@ public class Certame implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public List<Inscricao> getInscricaoList() {
-        return inscricaoList;
-    }
-
-    public void setInscricaoList(List<Inscricao> inscricaoList) {
-        this.inscricaoList = inscricaoList;
-    }
-
-    @XmlTransient
-    public List<ArquivoCertame> getArquivoCertameList() {
-        return arquivoCertameList;
-    }
-
-    public void setArquivoCertameList(List<ArquivoCertame> arquivoCertameList) {
-        this.arquivoCertameList = arquivoCertameList;
     }
 
     @XmlTransient

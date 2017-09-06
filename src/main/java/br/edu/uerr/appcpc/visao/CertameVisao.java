@@ -8,6 +8,7 @@ package br.edu.uerr.appcpc.visao;
 import br.edu.uerr.appcpc.controle.CertameControle;
 import br.edu.uerr.appcpc.controle.PessoaControle;
 import br.edu.uerr.appcpc.controle.TipoVagaControle;
+import br.edu.uerr.appcpc.modelo.Cargo;
 import br.edu.uerr.appcpc.modelo.Certame;
 import br.edu.uerr.appcpc.modelo.Inscricao;
 import br.edu.uerr.appcpc.modelo.Pessoa;
@@ -24,6 +25,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -138,11 +140,18 @@ public class CertameVisao extends AbstractVisao implements Serializable {
                 return null;
             }
             
+            
             return redirect("/sistema/usuario/formInscricao.xhtml");
         } catch (Exception e) {
             showFacesMessage(e.getMessage(), 4);
             return null;
         }
+    }
+    
+    public void getListaTipoVagas(final SelectEvent event){
+        final Cargo tmp = (Cargo) event.getObject();
+        
+        System.out.println("Selecionou esse: "+tmp.getCargoVagasList());
     }
 
     public Certame getCertame() {

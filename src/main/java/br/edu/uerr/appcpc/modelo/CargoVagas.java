@@ -7,7 +7,6 @@ package br.edu.uerr.appcpc.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,8 +48,6 @@ public class CargoVagas implements Serializable {
     private BigDecimal valorVaga;
     @Column(name = "status")
     private Integer status;
-    @OneToMany(mappedBy = "idCargoVagas")
-    private List<Inscricao> inscricaoList;
     @JoinColumn(name = "id_cargo", referencedColumnName = "id")
     @ManyToOne
     private Cargo idCargo;
@@ -97,15 +92,6 @@ public class CargoVagas implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public List<Inscricao> getInscricaoList() {
-        return inscricaoList;
-    }
-
-    public void setInscricaoList(List<Inscricao> inscricaoList) {
-        this.inscricaoList = inscricaoList;
     }
 
     public Cargo getIdCargo() {
